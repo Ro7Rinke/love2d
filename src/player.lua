@@ -8,7 +8,7 @@ function Player:new()
     self.frames = {self.image_1, self.image_2, self.image_3, self.image_4}
     self.x = 0
     self.y = 0
-    self.timer = 1
+    self.timer = 0
     self.width = self.image_1:getWidth()
     self.height = self.image_1:getHeight()
 end
