@@ -20,14 +20,20 @@ function Player:new()
 end
 
 function Player:update(dt)
-    self.timer = self.timer + dt * 8
+    if self.is_alive then
+        self.timer = self.timer + dt * 8
 
-    if self.current_role == 1 && self.y ~= self.left_role_y then
-        self.y = self.left_role_y
-    else if self.current_role == 2 && self.y ~= self.central_role_y then
-        self.y = self.central_role_y
-    else if self.current_role == 3 && self.y ~= self.right_role_y then
-        self.y = self.right_role_y
+        if self.lives < 1 then
+            self.is_alive = false
+        end
+
+        if self.current_role == 1 && self.y ~= self.left_role_y then
+            self.y = self.left_role_y
+        else if self.current_role == 2 && self.y ~= self.central_role_y then
+            self.y = self.central_role_y
+        else if self.current_role == 3 && self.y ~= self.right_role_y then
+            self.y = self.right_role_y
+        end
     end
 end
 
