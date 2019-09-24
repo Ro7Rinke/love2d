@@ -8,15 +8,19 @@ function love.load()
     player = Player()
     enemies = {Enemy('zombie')}
     scoreboard = Scoreboard()
+    current_screen = 'game'
     -- system = initSystem()
 
 end
 
 function love.update(dt)
 
+
+
+
     -- player:update(dt)
     -- scoreboard:update(dt)
-    background.update(dt)
+    -- background.update(dt)
     -- function love.keypressed(key)
     --     verifyKey()
     -- end
@@ -24,22 +28,26 @@ function love.update(dt)
 end
 
 function love.draw()
+
+
+
+
     -- player:draw()
     -- love.graphics.print(background.images_alive[1].x, 0 ,0)
-    love.graphics.draw(background.images_alive[1].source, background.images_alive[1].x, background.images_alive[1].y)
-    love.graphics.draw(background.images_alive[2].source, background.images_alive[2].x, background.images_alive[2].y)
+    -- love.graphics.draw(background.images_alive[1].source, background.images_alive[1].x, background.images_alive[1].y)
+    -- love.graphics.draw(background.images_alive[2].source, background.images_alive[2].x, background.images_alive[2].y)
     -- scoreboard:draw()
 end
 
 function verifyKey (key)
-
-    if key == 'right' or key == 'down' then
-
+    if current_screen == 'game' then
+        if key == 'right' or key == 'down' then
+            player:changeRole('right')
+        end
+        if key == 'left' or key == 'up' then
+            player:changeRole('left')
+        end
     end
-    if key == 'left' or key == 'up' then
-
-    end
-
 end
 
 function verifyCollision (a, b)
