@@ -1,7 +1,7 @@
 Scoreboard = Object:extend()
 
 function Scoreboard:startAddScore(phase) -- phase number
-    if phase == 0 then -- phase number 0 is tthe total score 
+    if phase == 0 then -- phase number 0 is the total score 
         self.score.adding_total = true
     elseif phase == 1 then
         self.score.adding_first = true
@@ -13,7 +13,7 @@ function Scoreboard:startAddScore(phase) -- phase number
 end
 
 function Scoreboard:stopAddScore(phase) -- phase number
-    if phase == 0 then -- phase number 0 is tthe total score 
+    if phase == 0 then -- phase number 0 is the total score 
         self.score.adding_total = false
     elseif phase == 1 then
         self.score.adding_first = false
@@ -25,7 +25,7 @@ function Scoreboard:stopAddScore(phase) -- phase number
 end
 
 function Scoreboard:startAddTime(phase) -- phase number
-    if phase == 0 then -- phase number 0 is tthe total time 
+    if phase == 0 then -- phase number 0 is the total time 
         self.time.adding_total = true
     elseif phase == 1 then
         self.time.adding_first = true
@@ -37,7 +37,7 @@ function Scoreboard:startAddTime(phase) -- phase number
 end
 
 function Scoreboard:stopAddTime(phase) -- phase number
-    if phase == 0 then -- phase number 0 is tthe total time 
+    if phase == 0 then -- phase number 0 is the total time 
         self.time.adding_total = false
     elseif phase == 1 then
         self.time.adding_first = false

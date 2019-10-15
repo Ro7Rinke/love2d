@@ -9,34 +9,23 @@ function love.load()
     enemies = {Enemy('zombie')}
     scoreboard = Scoreboard()
     current_screen = 'game'
-    -- system = initSystem()
 
 end
 
 function love.update(dt)
 
-
-
-
-    -- player:update(dt)
-    -- scoreboard:update(dt)
-    -- background.update(dt)
-    -- function love.keypressed(key)
-    --     verifyKey()
-    -- end
+    if current_screen == 'game' then
+        background.update(dt)
+    end
 
 end
 
 function love.draw()
 
+    if current_screen == 'game' then
+        background.draw()
+    end
 
-
-
-    -- player:draw()
-    -- love.graphics.print(background.images_alive[1].x, 0 ,0)
-    -- love.graphics.draw(background.images_alive[1].source, background.images_alive[1].x, background.images_alive[1].y)
-    -- love.graphics.draw(background.images_alive[2].source, background.images_alive[2].x, background.images_alive[2].y)
-    -- scoreboard:draw()
 end
 
 function verifyKey (key)
@@ -73,34 +62,16 @@ function verifyCollision (a, b)
 
 end
 
--- function initScoreboard ()
---     local scoreboard = {}
-    
---     scoreboard.first = 0
---     scoreboard.add_first = false
---     scoreboard.second = 0
---     scoreboard.add_second = false
---     scoreboard.third = 0
---     scoreboard.add_third = false
---     scoreboard.total = 0
---     scoreboard.add_total = false
---     scoreboard.time = {}
---     scoreboard.time.first = 0
---     scoreboard.time.add_first = false
---     scoreboard.time.second = 0
---     scoreboard.time.add_second = false
---     scoreboard.time.third = 0
---     scoreboard.time.add_third = false
---     scoreboard.time.total = 0
---     scoreboard.time.add_total = false
+function selectPhase(phase_id)
+    if phase_id == 1 then
 
---     return scoreboard
--- end
-
--- function initSystem ()
-
---     local system = {}
-
---     return system
-
--- end
+    end
+    if phase_id == 2 then
+        background.image = love.graphics.newImage('assets/images/fase2-1200x630.png')
+        background.image2 = love.graphics.newImage('assets/images/fase2-1200x630.png')
+        scoreboard.startAddTime(0)
+        scoreboard.startAddTime(2)
+        scoreboard.startAddScore(0)
+        scoreboard.startAddScore(2)
+    end
+end

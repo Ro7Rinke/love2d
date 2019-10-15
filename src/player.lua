@@ -22,17 +22,20 @@ end
 function Player:update(dt)
     if self.is_alive then
         self.timer = self.timer + dt * 8
-
         if self.lives < 1 then
             self.is_alive = false
-        end
-
-        if self.current_role == 1 && self.y ~= self.left_role_y then
-            self.y = self.left_role_y
-        else if self.current_role == 2 && self.y ~= self.central_role_y then
-            self.y = self.central_role_y
-        else if self.current_role == 3 && self.y ~= self.right_role_y then
-            self.y = self.right_role_y
+        else
+            if self.current_role == 1 and self.y ~= self.left_role_y then
+                self.y = self.left_role_y
+            else
+                if self.current_role == 2 and self.y ~= self.central_role_y then
+                    self.y = self.central_role_y
+                else
+                    if self.current_role == 3 and self.y ~= self.right_role_y then
+                        self.y = self.right_role_y
+                    end
+                end
+            end
         end
     end
 end
@@ -43,10 +46,12 @@ end
 
 function Player:changeRole(direction)
     if self.is_alive then
-        if direction == 'right' && self.current_role < 3 then
+        if direction == 'right' and self.current_role < 3 then
             self.current_role = self.current_role + 1
-        else if direction == 'left' && self.current_role > 1 then
-            self.current_role = self.current_role - 1
+        else
+            if direction == 'left' and self.current_role > 1 then
+                self.current_role = self.current_role - 1
+            end
         end
     end
 end
