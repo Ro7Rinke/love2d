@@ -1,5 +1,3 @@
-# love2d
-
 # Sprites
 
 - **Tela** = 1200x630
