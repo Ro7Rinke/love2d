@@ -13,3 +13,6 @@
 |Porta           |`Não feito`                    |`Não feito`                  |
 |Animal 1        |`Não feito`                    |`Não feito`                  |
 |Animal 2        |`Não feito`                    |`Não feito`                  |
+
+mudar altura do background de 630 para 740
+espaçamento entre lanes de 10
