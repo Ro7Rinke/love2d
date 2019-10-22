@@ -1,8 +1,8 @@
 # love2d
 
-#Sprites
+##Sprites
 
--**Tela** = 1200x630
--**Nurse** = 36x58
--**Ambulância** = 339x182
--**Buraco** = 32x32
+- **Tela** = 1200x630
+- **Nurse** = 36x58
+- **Ambulância** = 339x182
+- **Buraco** = 32x32
