@@ -1,6 +1,6 @@
 # love2d
 
-##Sprites
+# Sprites
 
 - **Tela** = 1200x630
 - **Nurse** = 36x58
