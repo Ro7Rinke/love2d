@@ -1,10 +1,11 @@
 Player = Object:extend()
 
 function Player:new()
-    self.image_1 = love.graphics.newImage('assets/images/nurse_walk_1.png')
-    self.image_2 = love.graphics.newImage('assets/images/nurse_walk_2.png')
-    self.image_3 = love.graphics.newImage('assets/images/nurse_walk_3.png')
-    self.image_4 = love.graphics.newImage('assets/images/nurse_walk_4.png')
+    self.image = love.graphics.newImage('assets/images/runNurse-72x116.png')
+    self.image_1 = love.graphics.newQuad(0, 0, 72, 116, self.image:getDimensions())
+    self.image_2 = love.graphics.newQuad(0, 0, 148, 116, self.image:getDimensions())
+    self.image_3 = love.graphics.newQuad(0, 0, 220, 116, self.image:getDimensions())
+    self.image_4 = love.graphics.newQuad(0, 0, 72, 232, self.image:getDimensions())
     self.frames = {self.image_1, self.image_2, self.image_3, self.image_4}
     self.current_role = 1
     self.left_role_y = 30
@@ -15,13 +16,13 @@ function Player:new()
     self.x = 0
     self.y = 0
     self.timer = 0
-    self.width = self.image_1:getWidth()
-    self.height = self.image_1:getHeight()
+    self.width = 72
+    self.height = 116
 end
 
 function Player:update(dt)
     if self.is_alive then
-        self.timer = self.timer + dt * 8
+        self.timer = self.timer + dt * 18
         if self.lives < 1 then
             self.is_alive = false
         else
@@ -41,7 +42,9 @@ function Player:update(dt)
 end
 
 function Player:draw()
-    love.graphics.draw(self.frames[(math.floor(self.timer)%4)+1], self.x, self.y)
+    love.graphics.draw(self.image, self.frames[4], 100,100)
+    self.index = (math.floor(self.timer)%4)+1
+    love.graphics.draw(self.image, self.frames[self.index], (self.x - ((self.index - 1) * 72)), self.y)
 end
 
 function Player:changeRole(direction)

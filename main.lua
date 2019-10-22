@@ -17,15 +17,14 @@ function love.update(dt)
     if current_screen == 'game' then
         background.update(dt)
     end
-
+    player:update(dt)
 end
 
 function love.draw()
-
     if current_screen == 'game' then
         background.draw()
     end
-
+    player:draw()
 end
 
 function verifyKey (key)
