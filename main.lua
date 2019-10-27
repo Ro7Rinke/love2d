@@ -68,8 +68,8 @@ function selectPhase(phase_id)
 
     end
     if phase_id == 2 then
-        background.image = love.graphics.newImage('assets/images/fase2-1200x630.png')
-        background.image2 = love.graphics.newImage('assets/images/fase2-1200x630.png')
+        background.image = love.graphics.newImage('assets/images/fase2-1200x675.png')
+        background.image2 = love.graphics.newImage('assets/images/fase2-1200x675.png')
         scoreboard.startAddTime(0)
         scoreboard.startAddTime(2)
         scoreboard.startAddScore(0)

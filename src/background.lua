@@ -1,6 +1,6 @@
 background = {}
-    background.image = love.graphics.newImage('assets/images/fase2-1200x740.png')
-    background.image2 = love.graphics.newImage('assets/images/fase2-1200x740.png')
+    background.image = love.graphics.newImage('assets/images/fase2-1200x675.png')
+    background.image2 = love.graphics.newImage('assets/images/fase2-1200x675.png')
     local obj = {}
     obj.source = background.image
     obj.x = 0

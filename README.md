@@ -1,14 +1,14 @@
 # Sprites
 
-## Tamanho da tela = 1200x740
+## Tamanho da tela = 1200x675
 |                |Largura                        |Altura                       |
 |----------------|-------------------------------|-----------------------------|
 |Fase 1          |`Não feito`                    |`Não feito`                  |
-|Fase 2          |`1200`                         |`740`                        |
+|Fase 2          |`1200`                         |`675`                        |
 |Fase 3          |`Não feito`                    |`Não feito`                  |
-|Nurse           |`126`                          |`203`                        |
+|Nurse           |`192`                          |`192`                        |
 |Zombie          |`102`                          |`192`                        |
-|Ambulância      |`380`                          |`204`                        |
+|Ambulância      |`363`                          |`195`                        |
 |Buraco          |`96`                           |`96`                         |
 |Seringa         |`Não feito`                    |`Não feito`                  |
 |Vida            |`Não feito`                    |`Não feito`                  |
@@ -19,14 +19,3 @@
 |Fox             |`120`                          |`96`                         |
 
 - Espaçamento entre lanes de 10
-
-```mermaid
-graph LR
-A[Inicio] --> B{Levou dano?}
-B -- Sim --> C{Vida > 1}
-C -- Sim --> D(Perde 1 ponto de vida)
-D --> F
-C -- Não --> E(Fim de jogo)
-E --> A
-B -- Não --> F(Continua)
-```
