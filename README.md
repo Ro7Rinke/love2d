@@ -19,14 +19,3 @@
 |Fox             |`120`                          |`96`                         |
 
 - Espaçamento entre lanes de 10
-
-```mermaid
-graph LR
-A[Inicio] --> B{Levou dano?}
-B -- Sim --> C{Vida > 1}
-C -- Sim --> D(Perde 1 ponto de vida)
-D --> F
-C -- Não --> E(Fim de jogo)
-E --> A
-B -- Não --> F(Continua)
-```
