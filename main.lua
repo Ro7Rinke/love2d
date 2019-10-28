@@ -13,18 +13,21 @@ function love.load()
     music = love.audio.newSource('assets/soundFX/ambulanciamusic.mp3', 'static')
     music:setVolume(0.1) -- 10% volume
     music:play()
-
+    tempoSpawn = 5
+    time = 5
 end
 
 function love.update(dt)
-    
+    time = time - dt
+
+    if time <= 0 then
+        table.insert(enemies, Enemy("zombie"))
+        time = tempoSpawn
+    end
+
     if current_screen == 'game' then
-        function love.keypressed(key)
-            verifyKey(key)
-        end
-        for i,enemy in ipairs(enemies) do
-            enemy:update(dt)
-        end
+        function love.keypressed(key) verifyKey(key) end
+        for i, enemy in ipairs(enemies) do enemy:update(dt) end
         background.update(dt)
         player:update(dt)
     end
@@ -34,24 +37,22 @@ function love.draw()
     if current_screen == 'game' then
         background.draw()
     end
-    for i,enemy in ipairs(enemies) do
+    for i, enemy in ipairs(enemies) do
         enemy:draw()
     end
     player:draw()
 end
 
-function verifyKey (key)
+function verifyKey(key)
     if current_screen == 'game' then
         if key == 'right' or key == 'down' then
             player:changeRole('right')
         end
-        if key == 'left' or key == 'up' then
-            player:changeRole('left')
-        end
+        if key == 'left' or key == 'up' then player:changeRole('left') end
     end
 end
 
-function verifyCollision (a, b)
+function verifyCollision(a, b)
 
     local a_left = a.x
     local a_right = a.x + a.width
@@ -63,21 +64,15 @@ function verifyCollision (a, b)
     local b_top = b.y
     local b_bottom = b.y + b.height
 
-    if a_right > b.left and
-        a_left < b_right and
-            a_bottom > b_top and
-                a_top < b_bottom then
-        return true
-    end
+    if a_right > b.left and a_left < b_right and a_bottom > b_top and a_top <
+        b_bottom then return true end
 
     return false
 
 end
 
 function selectPhase(phase_id)
-    if phase_id == 1 then
-
-    end
+    if phase_id == 1 then end
     if phase_id == 2 then
         background.image = love.graphics.newImage('assets/images/fase2-1200x675.png')
         background.image2 = love.graphics.newImage('assets/images/fase2-1200x675.png')
