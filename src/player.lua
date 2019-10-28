@@ -1,6 +1,7 @@
 Player = Object:extend()
 
 function Player:new(type)
+    self.type = type
     if self.type == 'normal' then
         self.width = 192
         self.height = 192
