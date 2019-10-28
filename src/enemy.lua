@@ -1,5 +1,8 @@
 Enemy = Object:extend()
 
+dtMaxCreateEnemy = 0.4
+dtCurrentEnemy = dtMaxCreateEnemy
+
 function Enemy:new(type)
     self.speed = 6 -- Velocidade 
     self.anim_timer = 1 / self.speed -- Temporizador da animação
@@ -11,7 +14,7 @@ function Enemy:new(type)
     self.image = love.graphics.newImage('assets/images/zombie-102x192.png')
     self.frames = love.graphics.newQuad(0, 0, 306, 192, self.image:getDimensions())
     self.x = 1200
-    self.y = 0
+    self.y = 41
     self.timer = 0
     self.width = self.image:getWidth()
     self.height = self.image:getHeight()
@@ -35,6 +38,13 @@ function Enemy:update(dt)
     end
 
     self.x = self.x - (300 * dt) -- Movimenta o inimigo
+    
+    -- Atualizando posição dos inimigos
+    for i, self in ipairs(enemies) do
+      if self.x < 0 then -- remover se ultrapassar o final da tela
+        table.remove(enemies, i)
+      end
+    end
 end
 
 function Enemy:draw() 
