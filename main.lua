@@ -9,6 +9,10 @@ function love.load()
     enemies = {Enemy("zombie")}
     scoreboard = Scoreboard()
     current_screen = 'game'
+    love.graphics.setDefaultFilter('nearest', 'nearest')
+    music = love.audio.newSource('assets/soundFX/ambulanciamusic.mp3', 'static')
+    music:setVolume(0.1) -- 10% volume
+    music:play()
 
 end
 

@@ -11,9 +11,8 @@
 |Ambulância      |`363`                          |`195`                        |
 |Buraco          |`96`                           |`96`                         |
 |Seringa         |`Não feito`                    |`Não feito`                  |
-|Vida            |`Não feito`                    |`Não feito`                  |
-|Kit Médico      |`Não feito`                    |`Não feito`                  |
-|Porta           |`Não feito`                    |`Não feito`                  |
+|Vida            |`39`                           |`39`                         |
+|Kit Médico      |`60`                           |`65`                         |
 |Horse           |`240`                          |`192`                        |
 |Moose           |`240`                          |`192`                        |
 |Fox             |`120`                          |`96`                         |
