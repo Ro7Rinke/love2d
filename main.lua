@@ -5,17 +5,21 @@ function love.load()
     require 'src/enemy'
     require 'src/scoreboard'
     require 'src/background'
-    player = Player('special')
-    -- enemies = {Enemy('zombie')}
+    player = Player('normal')
+    enemies = {Enemy("zombie")}
     scoreboard = Scoreboard()
     current_screen = 'game'
 
 end
 
 function love.update(dt)
+    
     if current_screen == 'game' then
         function love.keypressed(key)
             verifyKey(key)
+        end
+        for i,enemy in ipairs(enemies) do
+            enemy:update(dt)
         end
         background.update(dt)
         player:update(dt)
@@ -25,6 +29,9 @@ end
 function love.draw()
     if current_screen == 'game' then
         background.draw()
+    end
+    for i,enemy in ipairs(enemies) do
+        enemy:draw()
     end
     player:draw()
 end
