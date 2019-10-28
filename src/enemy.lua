@@ -2,7 +2,7 @@ Enemy = Object:extend()
 
 function Enemy:new(type)
     self.type = type
-    self.image = love.graphics.newImage('assets/images/nurse_walk_1.png')
+    self.image = love.graphics.newImage('assets/images/zombie-102x192.png')
     self.x = 300
     self.y = 0
     self.timer = 0

@@ -1,6 +1,7 @@
 Player = Object:extend()
 
 function Player:new(type)
+    self.type = type
     if self.type == 'normal' then
         self.width = 192
         self.height = 192
@@ -11,6 +12,7 @@ function Player:new(type)
         self.image_4 = love.graphics.newQuad(0, 0, 768, 192, self.image:getDimensions())
     else
       -- Criação do personagem
+      
         self.width = 363
         self.height = 195
         self.image = love.graphics.newImage('assets/images/ambulancia-363x195.png')
@@ -19,7 +21,7 @@ function Player:new(type)
         self.image_3 = love.graphics.newQuad(0, 0, 1089, 195, self.image:getDimensions())
         self.image_4 = love.graphics.newQuad(0, 0, 1452, 195, self.image:getDimensions())
     end
-    -- Animação do personagem
+    -- Frames do personagem
     self.frames = {self.image_1, self.image_2, self.image_3, self.image_4}
     -- Qual linha o personagem ira começar
     self.current_role = 2
