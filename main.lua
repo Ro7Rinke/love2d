@@ -13,8 +13,8 @@ function love.load()
     music = love.audio.newSource('assets/soundFX/ambulanciamusic.mp3', 'static')
     music:setVolume(0.1) -- 10% volume
     music:play()
-    tempoSpawn = {zombie = 3, horse = 2}
-    time = {zombie = 0, horse = 0}
+    tempoSpawn = {zombie = 3, stone = 8}
+    time = {zombie = 0, stone = 0}
     dtMaxCreateEnemy = 0.4
     dtCurrentEnemy = dtMaxCreateEnemy
 end
