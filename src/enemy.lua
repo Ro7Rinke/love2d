@@ -41,7 +41,7 @@ function Enemy:update(dt)
     
     -- Atualizando posição dos inimigos
     for i, self in ipairs(enemies) do
-      if self.x < 0 then -- remover se ultrapassar o final da tela
+      if self.x < -102 then -- remover se ultrapassar o final da tela
         table.remove(enemies, i)
       end
     end
