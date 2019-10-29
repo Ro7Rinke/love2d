@@ -32,7 +32,12 @@ function love.update(dt)
 
     if current_screen == 'game' then
         function love.keypressed(key) verifyKey(key) end
-        for i, enemy in ipairs(enemies) do enemy:update(dt) end
+        for i, enemy in ipairs(enemies) do 
+            enemy:update(dt) 
+            if verifyCollision(player, enemy) then
+                table.remove( enemies,i )
+            end
+        end
         background.update(dt)
         player:update(dt)
     end
@@ -70,7 +75,7 @@ function verifyCollision(a, b)
     local b_top = b.y
     local b_bottom = b.y + b.height
 
-    if a_right > b.left and a_left < b_right and a_bottom > b_top and a_top <
+    if a_right > b_left and a_left < b_right and a_bottom > b_top and a_top <
         b_bottom then return true end
 
     return false
