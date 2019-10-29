@@ -13,17 +13,27 @@ function love.load()
     music = love.audio.newSource('assets/soundFX/ambulanciamusic.mp3', 'static')
     music:setVolume(0.1) -- 10% volume
     music:play()
-    tempoSpawn = 5
-    time = 5
+    tempoSpawn = 0.4
+    time = tempoSpawn
+    dtMaxCreateEnemy = 0.4
+    dtCurrentEnemy = dtMaxCreateEnemy
 end
 
 function love.update(dt)
-    time = time - dt
+    --time = time - dt
 
-    if time <= 0 then
-        table.insert(enemies, Enemy("zombie"))
+    --if time <= 0 then
+        --table.insert(enemies, Enemy("zombie"))
         time = tempoSpawn
-    end
+        time = time - (1 * dt)
+        if time < 0 then
+            time = tempoSpawn
+            -- Criando uma instância do inimigo
+            posDynamic = math.random(10, love.graphics.getWidth() - ((enemy:getWidth() / 2) + 10))
+            lvlEnemy = { x = posDynamic, y = -enemy:getWidth(), img = enemy }
+            table.insert(enemies, lvlEnemy)
+        end
+    --end
 
     if current_screen == 'game' then
         function love.keypressed(key) verifyKey(key) end
@@ -37,6 +47,7 @@ function love.draw()
     if current_screen == 'game' then
         background.draw()
     end
+    
     for i, enemy in ipairs(enemies) do
         enemy:draw()
     end

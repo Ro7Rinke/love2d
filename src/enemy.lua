@@ -1,7 +1,6 @@
 Enemy = Object:extend()
 
-dtMaxCreateEnemy = 0.4
-dtCurrentEnemy = dtMaxCreateEnemy
+
 
 function Enemy:new(type)
     self.speed = 6 -- Velocidade 
@@ -25,6 +24,8 @@ function Enemy:update(dt)
 
     -- self.timer = self.timer + dt * 4
 
+  
+
     -- Faz a animação ser recortada
     self.anim_timer = self.anim_timer - dt
     if self.anim_timer <= 0 then
@@ -36,6 +37,9 @@ function Enemy:update(dt)
         self.xoffset = 102 * self.frame
         self.frames:setViewport(self.xoffset, 0, 102, 192)
     end
+
+    -- Temporização da onda de inimigos
+   
 
     self.x = self.x - (300 * dt) -- Movimenta o inimigo
     
