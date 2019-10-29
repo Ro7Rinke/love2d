@@ -13,8 +13,8 @@ function Enemy:new(type)
     self.x = 1200
     self.y = 41
     self.timer = 0
-    self.width = self.image:getWidth()
-    self.height = self.image:getHeight()
+    self.width = 102
+    self.height = 192
 
     self.left_role_y = 41
     self.central_role_y = 238

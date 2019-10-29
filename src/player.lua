@@ -2,27 +2,31 @@ Player = Object:extend()
 
 function Player:new(type)
     self.type = type
+
     if self.type == 'normal' then
         self.speed = 12 -- Velocidade 
-        self.anim_timer = 1 / self.speed -- Temporizador da animação
-        self.frame = 0 -- Frame atual
         self.num_frames = 4 -- Total de frames
-        self.xoffset = 0 -- Espaçamento entre frames 
+        
         self.image = love.graphics.newImage('assets/images/runNurse-192x192.png')
-        self.frames = love.graphics.newQuad(0, 0, 768, 192, self.image:getDimensions())
-        self.frames:setViewport(self.xoffset, 0, 192, 192) -- Faz com que carregue a imagem inteira antes de desenhar na tela
-
+        self.width = 192
+        self.height = 192
     else
         self.speed = 12 -- Velocidade 
-        self.anim_timer = 1 / self.speed -- Temporizador da animação
-        self.frame = 0 -- Frame atual
         self.num_frames = 4 -- Total de frames
-        self.xoffset = 0 -- Espaçamento entre frames 
+
         self.image = love.graphics.newImage('assets/images/ambulancia-363x195.png')
-        self.frames = love.graphics.newQuad(0, 0, 1452, 195, self.image:getDimensions())
-        self.frames:setViewport(self.xoffset, 0, 363, 195)
+        self.width = 363
+        self.height = 195
 
     end
+
+    -- Variveis de animação
+    self.xoffset = 0 -- Espaçamento entre frames 
+    self.anim_timer = 1 / self.speed -- Temporizador da animação
+    self.frame = 0 -- Frame atual
+    
+    self.frames = love.graphics.newQuad(0, 0, self.image:getWidth(), self.image:getHeight(), self.image:getDimensions()) -- Faz com que carregue a imagem inteira antes de desenhar na tela
+    self.frames:setViewport(self.xoffset, 0, self.width, self.height)
 
     -- Qual linha o personagem ira começar
     self.current_role = 2
@@ -47,8 +51,6 @@ function Player:update(dt)
         -- Faz a animação ser recortada
         self.anim_timer = self.anim_timer - dt
 
-        if self.type == 'normal' then
-
             if self.anim_timer <= 0 then
                 self.anim_timer = 1 / self.speed
                 self.frame = self.frame + 1
@@ -57,26 +59,9 @@ function Player:update(dt)
                     self.frame = 0
                 end
                 
-                self.xoffset = 192 * self.frame
-                self.frames:setViewport(self.xoffset, 0, 192, 192)
+                self.xoffset = self.width * self.frame
+                self.frames:setViewport(self.xoffset, 0, self.width, self.height)
             end
-
-        else
-
-                if self.anim_timer <= 0 then
-
-                    self.anim_timer = 1 / self.speed
-                    self.frame = self.frame + 1
-
-                    if self.frame >= self.num_frames then
-                        self.frame = 0
-                    end
-
-                    self.xoffset = 363 * self.frame
-                    self.frames:setViewport(self.xoffset, 0, 363, 195)
-                end
-            
-        end
 
         if self.lives < 1 then
             self.is_alive = false
