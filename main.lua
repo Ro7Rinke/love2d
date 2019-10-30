@@ -6,7 +6,7 @@ function love.load()
     require 'src/scoreboard'
     require 'src/background'
     player = Player('normal')
-    enemies = {Enemy()}
+    enemies = {}
     scoreboard = Scoreboard()
     current_screen = 'game'
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -15,8 +15,7 @@ function love.load()
     music:play()
     tempoSpawn = {zombie = 3, stone = 8}
     time = {zombie = 0, stone = 0}
-    dtMaxCreateEnemy = 0.4
-    dtCurrentEnemy = dtMaxCreateEnemy
+
 end
 
 function love.update(dt)
@@ -46,7 +45,6 @@ function love.update(dt)
             -- se há colisão.
             if a_left < b_center then
                 if verifyCollision(player, enemy) then
-
                   player:takeDamage()
                   table.remove( enemies,i )
                 end
@@ -68,6 +66,8 @@ function love.draw()
         enemy:draw()
     end
     player:draw()
+    love.graphics.setColor(1,1,1)
+    love.graphics.print("PONTUACAO: "..tostring(player.lives), 10, 10)
 end
 
 function verifyKey(key)
