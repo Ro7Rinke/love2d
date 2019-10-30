@@ -19,7 +19,7 @@
 
 - Espaçamento entre lanes de 10
 
-###Lista de tarefas
+## Lista de tarefas (Colocar aqui o que falta e oq já fez)
 
 - [x] GFM task list 1
 - [x] GFM task list 2
@@ -31,3 +31,36 @@
     - [ ] GFM task list 4-1
     - [ ] GFM task list 4-2
 
+## Estrutura da pasta love2d
+
+love2d/
+├── assets/
+│   ├── images/
+│   │   ├── ambulancia-363x195.png
+│   │   ├── bisturi-72x75.png
+│   │   ├── buraco-96x96.png
+│   │   ├── Fase1-1200x675.png
+│   │   ├── fase2-1200x675.png
+│   │   ├── fase3-1200x675.png
+│   │   ├── fox-120x96.png
+│   │   ├── heart-39x39.png
+│   │   ├── horse-240x192.png
+│   │   ├── medicalKit-60x65.png
+│   │   ├── moose-240x192.png
+│   │   ├── RunNurse-192x192.png
+│   │   ├── stone-140x140.png
+│   │   └── zombie-102x192.png
+│   └── soundFX/
+│       └── ambulanciamusic.mp3      
+├── love/
+│   ├── game.ico
+│   └── love.ico
+├── src/
+│   ├── background.lua
+│   ├── classic.lua
+│   ├── enemy.lua
+│   └── player.lua
+├── conf.lua
+├── main.lua
+├── README.md
+└── start.bat
