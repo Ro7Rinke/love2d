@@ -33,10 +33,10 @@
 
 ## Estrutura da pasta love2d
 
-love2d/
-├── assets/
-│   ├── images/
-│   │   ├── ambulancia-363x195.png
+> love2d/
+> ├── assets/
+> │   ├── images/
+> │   │   ├── ambulancia-363x195.png
 │   │   ├── bisturi-72x75.png
 │   │   ├── buraco-96x96.png
 │   │   ├── Fase1-1200x675.png
