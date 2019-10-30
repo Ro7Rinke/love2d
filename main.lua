@@ -6,7 +6,7 @@ function love.load()
     require 'src/scoreboard'
     require 'src/background'
     player = Player('normal')
-    enemies = {Enemy("zombie")}
+    enemies = {Enemy()}
     scoreboard = Scoreboard()
     current_screen = 'game'
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -32,12 +32,27 @@ function love.update(dt)
 
     if current_screen == 'game' then
         function love.keypressed(key) verifyKey(key) end
+        
+        
         for i, enemy in ipairs(enemies) do 
             enemy:update(dt) 
-            if verifyCollision(player, enemy) then
-                player:takeDamage()
-                table.remove( enemies,i )
+            local a_left = player.x
+            local b_left = enemy.x
+            local b_right = enemy.x + enemy.width
+            local b_center = (b_left + b_right) / 2
+
+            -- Se a posiçao do player ainda não passou
+            -- a metade do tamanho do inimigo ele verifica
+            -- se há colisão.
+            if a_left < b_center then
+                if verifyCollision(player, enemy) then
+
+                  player:takeDamage()
+                  table.remove( enemies,i )
+                end
             end
+                
+            
         end
         background.update(dt)
         player:update(dt)
@@ -84,10 +99,13 @@ function verifyCollision(a, b)
 end
 
 function selectPhase(phase_id)
-    if phase_id == 1 then end
+    if phase_id == 1 then
+      current_phase = 1
+      background.image = love.graphics.newImage('assets/images/fase1-1200x675.png')
+    end
+    
     if phase_id == 2 then
         current_phase = 2
-        background.image = love.graphics.newImage('assets/images/fase2-1200x675.png')
         background.image2 = love.graphics.newImage('assets/images/fase2-1200x675.png')
         scoreboard.startAddTime(0)
         scoreboard.startAddTime(2)

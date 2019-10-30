@@ -39,7 +39,7 @@ function Player:new(type)
     self.is_alive = true
     self.lives = 3
     self.revives = 0
-    self.x = 20
+    self.x = 200
     self.y = 0
     self.timer = 0
     self.current_phase = 1
@@ -106,7 +106,7 @@ function Player:takeDamage()
     if self.lives > 1 then
         self.lives = self.lives - 1
     else
-        s
+        
     end
 end
 
