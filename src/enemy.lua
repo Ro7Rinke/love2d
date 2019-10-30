@@ -4,18 +4,32 @@ function Enemy:new(type)
     self.speed = 6 -- Velocidade 
     self.anim_timer = 1 / self.speed -- Temporizador da animação
     self.frame = 0 -- Frame atual
-    self.num_frames = 3 -- Total de frames
     self.xoffset = 0 -- Espaçamento entre frames 
 
     self.type = type
-    self.image = love.graphics.newImage('assets/images/zombie-102x192.png')
-    self.frames = love.graphics.newQuad(0, 0, 306, 192, self.image:getDimensions())
+    
+    if self.type == "zombie" then
+        self.image = love.graphics.newImage('assets/images/zombie-102x192.png')
+        self.width = 102
+        self.height = 192
+        self.num_frames = 3 -- Total de frames
+    elseif self.type == "stone" then
+        self.image = love.graphics.newImage('assets/images/stone-140x140.png')
+        self.width = 140
+        self.height = 140
+        self.num_frames = 1 -- Total de frames
+    else
+        self.image = love.graphics.newImage('assets/images/zombie-102x192.png')
+        self.width = 102
+        self.height = 192
+        self.num_frames = 3 -- Total de frames
+    end
+
+    self.frames = love.graphics.newQuad(0, 0, self.image:getWidth(), self.image:getHeight(), self.image:getDimensions()) -- Faz com que carregue a imagem inteira antes de desenhar na tela
     self.x = 1200
     self.y = 41
     self.timer = 0
-    self.width = 102
-    self.height = 192
-
+    
     self.left_role_y = 41
     self.central_role_y = 238
     self.right_role_y = 435
@@ -51,8 +65,8 @@ function Enemy:update(dt)
         if self.frame >= self.num_frames then 
             self.frame = 0
         end
-        self.xoffset = 102 * self.frame
-        self.frames:setViewport(self.xoffset, 0, 102, 192)
+        self.xoffset = self.width * self.frame
+        self.frames:setViewport(self.xoffset, 0, self.width, self.height)
     end
 
     -- Temporização da onda de inimigos
