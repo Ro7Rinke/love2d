@@ -35,6 +35,7 @@ function love.update(dt)
         for i, enemy in ipairs(enemies) do 
             enemy:update(dt) 
             if verifyCollision(player, enemy) then
+                player:takeDamage()
                 table.remove( enemies,i )
             end
         end
@@ -85,6 +86,7 @@ end
 function selectPhase(phase_id)
     if phase_id == 1 then end
     if phase_id == 2 then
+        current_phase = 2
         background.image = love.graphics.newImage('assets/images/fase2-1200x675.png')
         background.image2 = love.graphics.newImage('assets/images/fase2-1200x675.png')
         scoreboard.startAddTime(0)
@@ -92,4 +94,9 @@ function selectPhase(phase_id)
         scoreboard.startAddScore(0)
         scoreboard.startAddScore(2)
     end
+end
+
+function resetCurrentPhase()
+    player:revive()
+    selectPhase(player.current_phase)
 end

@@ -38,9 +38,11 @@ function Player:new(type)
     self.right_role_y = 435
     self.is_alive = true
     self.lives = 3
+    self.revives = 0
     self.x = 20
     self.y = 0
     self.timer = 0
+    self.current_phase = 1
 end
 
 function Player:update(dt)
@@ -65,7 +67,6 @@ function Player:update(dt)
 
         if self.lives < 1 then
             self.is_alive = false
-
         else
 
             if self.current_role == 1 and self.y ~= self.left_role_y then
@@ -99,4 +100,18 @@ function Player:changeRole(direction)
             end
         end
     end
+end
+
+function Player:takeDamage()
+    if self.lives > 1 then
+        self.lives = self.lives - 1
+    else
+        s
+    end
+end
+
+function Player:revive()
+    self.lives = 3
+    self.revives = self.revives + 1
+    self.is_alive = true
 end
