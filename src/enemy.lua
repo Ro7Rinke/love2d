@@ -19,7 +19,7 @@ function Enemy:new(type)
         self.height = 140
         self.num_frames = 1 -- Total de frames
     else
-        self.image = love.graphics.newImage('assets/images/zombie-102x192.png')
+        self.image = love.graphics.newImage('assets/images/buraco-102x192.png')
         self.width = 102
         self.height = 192
         self.num_frames = 3 -- Total de frames
