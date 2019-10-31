@@ -2,8 +2,6 @@ Background = Object:extend()
 
 function Background:new(image)
     images_alive = {}
-    -- background.image = love.graphics.newImage('assets/images/fase2-1200x675.png')
-    -- background.image2 = love.graphics.newImage('assets/images/fase2-1200x675.png')
 
     obj = {}
     obj.source = love.graphics.newImage(image)
@@ -31,7 +29,6 @@ function Background:update(dt)
         images_alive[1].x = 0
         images_alive[2].x = 1200
     end
-    print("update")
 
     images_alive[1].x = images_alive[1].x - (dt * 300)
     images_alive[2].x = images_alive[2].x - (dt * 300)

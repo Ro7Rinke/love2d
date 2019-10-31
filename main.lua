@@ -6,25 +6,21 @@ function love.load()
     require 'src/scoreboard'
     require 'src/phase'
     require 'src/background'
+
+    --Objeto da fase atual
     phase = Phase(2);
-    backgroundimage = phase.backgroundimage
 
     player = Player('special')
     heart = love.graphics.newImage('assets/images/heart-39x39.png')
     dead_window = love.graphics.newImage('assets/images/dead_window.png')
-    --vidona = love.graphics.newQuad(39, 78, heart:getWidth(), heart:getHeight(), heart:getDimensions())
     vidona = {love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
               love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
               love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()) }
-    --vidona[0] = love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions())
-    --vidona[1] = love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions())
-    --vidona[2] = love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions())
-    --vidinha = love.graphics.newQuad(39, 78, 78, 39, heart:getDimensions())
+
     enemies = {}
     scoreboard = Scoreboard()
     current_screen = 'game'
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    --music = love.audio.newSource('assets/soundFX/dancin_forro.mp3', 'static')
     you_died_music = love.audio.newSource('assets/soundFX/youdied.mp3', 'static')
     damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav', 'static')
 
@@ -35,7 +31,9 @@ end
 
 function love.update(dt)
     phase:update(dt)
+
     --Faz com que todos os tipos de inimigos tenham seu tempo atualizado
+    --Agora os inimigos são pegos diretamenta do objeto da fase
     for i, t in pairs(phase.enemys) do
         if time[i] == nil then
             time[i] = 0;
@@ -49,7 +47,6 @@ function love.update(dt)
 
     if current_screen == 'game' then
         function love.keypressed(key) verifyKey(key) end
-        
         
         for i, enemy in ipairs(enemies) do 
             enemy:update(dt) 
@@ -79,8 +76,7 @@ function love.update(dt)
                   table.remove( enemies,i )
                 end
             end
-                
-            
+
         end
         player:update(dt)
     end
@@ -88,7 +84,7 @@ end
 
 function love.draw()
     if current_screen == 'game' then
-        --background.draw()
+        --Cria o background da fase atual
         phase.draw()
     
     end
