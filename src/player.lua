@@ -84,6 +84,7 @@ function Player:update(dt)
             end
         end
     end
+
 end
 
 function Player:draw()
@@ -103,11 +104,11 @@ function Player:changeRole(direction)
 end
 
 function Player:takeDamage()
-    if self.lives > 1 then
+    if self.lives >= 1 then
         self.lives = self.lives - 1
-    else
-        
+        return self.lives
     end
+
 end
 
 function Player:revive()

@@ -5,7 +5,16 @@ function love.load()
     require 'src/enemy'
     require 'src/scoreboard'
     require 'src/background'
-    player = Player('normal')
+    player = Player('special')
+    heart = love.graphics.newImage('assets/images/heart-39x39.png')
+    --vidona = love.graphics.newQuad(39, 78, heart:getWidth(), heart:getHeight(), heart:getDimensions())
+    vidona = {love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
+              love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
+              love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()) }
+    --vidona[0] = love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions())
+    --vidona[1] = love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions())
+    --vidona[2] = love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions())
+    --vidinha = love.graphics.newQuad(39, 78, 78, 39, heart:getDimensions())
     enemies = {}
     scoreboard = Scoreboard()
     current_screen = 'game'
@@ -45,7 +54,11 @@ function love.update(dt)
             -- se há colisão.
             if a_left < b_center then
                 if verifyCollision(player, enemy) then
-                  player:takeDamage()
+                  algo = player:takeDamage()
+                  if algo > 0 then
+                    vidona[algo]:setViewport(39, 0, 39, 39)
+                  end
+
                   table.remove( enemies,i )
                 end
             end
@@ -66,8 +79,14 @@ function love.draw()
         enemy:draw()
     end
     player:draw()
+    love.graphics.draw(heart, vidona[1], 20, 20)
+    love.graphics.draw(heart, vidona[2], 63, 20)
+    love.graphics.draw(heart, vidona[3], 106, 20)
     love.graphics.setColor(1,1,1)
     love.graphics.print("PONTUACAO: "..tostring(player.lives), 10, 10)
+    if player.lives == 0 then
+    love.graphics.print("MORREU DESGRAÇA", 500, 500)
+    end
 end
 
 function verifyKey(key)
