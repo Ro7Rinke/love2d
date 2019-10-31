@@ -14,9 +14,9 @@ function Player:new(type)
         self.speed = 12 -- Velocidade 
         self.num_frames = 4 -- Total de frames
 
-        self.image = love.graphics.newImage('assets/images/ambulancia-363x195.png')
-        self.width = 363
-        self.height = 195
+        self.image = love.graphics.newImage('assets/images/ambulancia_song-331x197.png')
+        self.width = 331
+        self.height = 197
 
     end
 
@@ -104,9 +104,11 @@ function Player:changeRole(direction)
 end
 
 function Player:takeDamage()
-    if self.lives >= 1 then
+    if self.lives > 1 then
         self.lives = self.lives - 1
-        return self.lives
+        return true
+    else
+        return false
     end
 
 end

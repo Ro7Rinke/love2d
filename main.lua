@@ -7,6 +7,7 @@ function love.load()
     require 'src/background'
     player = Player('special')
     heart = love.graphics.newImage('assets/images/heart-39x39.png')
+    dead_window = love.graphics.newImage('assets/images/dead_window.png')
     --vidona = love.graphics.newQuad(39, 78, heart:getWidth(), heart:getHeight(), heart:getDimensions())
     vidona = {love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
               love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
@@ -19,11 +20,15 @@ function love.load()
     scoreboard = Scoreboard()
     current_screen = 'game'
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    music = love.audio.newSource('assets/soundFX/ambulanciamusic.mp3', 'static')
-    music:setVolume(0.1) -- 10% volume
+    music = love.audio.newSource('assets/soundFX/dancin_forro.mp3', 'static')
+    you_died_music = love.audio.newSource('assets/soundFX/youdied.mp3', 'static')
+    damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav', 'static')
+    music:setVolume(0.5) -- 10% volume
     music:play()
+    
     tempoSpawn = {zombie = 3, stone = 8}
     time = {zombie = 0, stone = 0}
+    x = 3
 
 end
 
@@ -54,10 +59,18 @@ function love.update(dt)
             -- se há colisão.
             if a_left < b_center then
                 if verifyCollision(player, enemy) then
-                  algo = player:takeDamage()
-                  if algo > 0 then
-                    vidona[algo]:setViewport(39, 0, 39, 39)
+                  damage_girl:play()
+                  damage = player:takeDamage()
+                  
+                  if damage == true then
+                    vidona[x]:setViewport(39, 0, 39, 39)
+                    x = x - 1
+                    
+                    --damage_girl:stop()
+                  else
+                    vidona[x]:setViewport(39, 0, 39, 39)
                   end
+                  
 
                   table.remove( enemies,i )
                 end
@@ -84,8 +97,10 @@ function love.draw()
     love.graphics.draw(heart, vidona[3], 106, 20)
     love.graphics.setColor(1,1,1)
     love.graphics.print("PONTUACAO: "..tostring(player.lives), 10, 10)
-    if player.lives == 0 then
-    love.graphics.print("MORREU DESGRAÇA", 500, 500)
+    if damage == false then
+    love.graphics.draw(dead_window)
+    music:stop()
+    you_died_music:play()
     end
 end
 
