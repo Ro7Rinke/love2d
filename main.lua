@@ -4,7 +4,11 @@ function love.load()
     require 'src/player'
     require 'src/enemy'
     require 'src/scoreboard'
+    require 'src/phase'
     require 'src/background'
+    phase = Phase(2);
+    backgroundimage = phase.backgroundimage
+
     player = Player('special')
     heart = love.graphics.newImage('assets/images/heart-39x39.png')
     dead_window = love.graphics.newImage('assets/images/dead_window.png')
@@ -20,26 +24,26 @@ function love.load()
     scoreboard = Scoreboard()
     current_screen = 'game'
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    music = love.audio.newSource('assets/soundFX/dancin_forro.mp3', 'static')
+    --music = love.audio.newSource('assets/soundFX/dancin_forro.mp3', 'static')
     you_died_music = love.audio.newSource('assets/soundFX/youdied.mp3', 'static')
     damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav', 'static')
-    music:setVolume(0.5) -- 10% volume
-    music:play()
-    
-    tempoSpawn = {zombie = 3, stone = 8}
-    time = {zombie = 0, stone = 0}
+
+    time = {}
     x = 3
 
 end
 
 function love.update(dt)
-
+    phase:update(dt)
     --Faz com que todos os tipos de inimigos tenham seu tempo atualizado
-    for i, t in pairs(time) do
+    for i, t in pairs(phase.enemys) do
+        if time[i] == nil then
+            time[i] = 0;
+    end
         time[i] = time[i]-dt
         if time[i] <= 0 then
             table.insert(enemies, Enemy(i))
-            time[i] = tempoSpawn[i]
+            time[i] = phase.enemys[i]
         end
     end
 
@@ -78,14 +82,15 @@ function love.update(dt)
                 
             
         end
-        background.update(dt)
         player:update(dt)
     end
 end
 
 function love.draw()
     if current_screen == 'game' then
-        background.draw()
+        --background.draw()
+        phase.draw()
+    
     end
     
     for i, enemy in ipairs(enemies) do
@@ -98,9 +103,9 @@ function love.draw()
     love.graphics.setColor(1,1,1)
     love.graphics.print("PONTUACAO: "..tostring(player.lives), 10, 10)
     if damage == false then
-    love.graphics.draw(dead_window)
-    music:stop()
-    you_died_music:play()
+        love.graphics.draw(dead_window)
+        phase.music:stop()
+        you_died_music:play()
     end
 end
 

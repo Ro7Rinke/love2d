@@ -1,28 +1,38 @@
-background = {}
-    background.image = love.graphics.newImage('assets/images/fase2-1200x675.png')
-    background.image2 = love.graphics.newImage('assets/images/fase2-1200x675.png')
-    local obj = {}
-    obj.source = background.image
+Background = Object:extend()
+
+function Background:new(image)
+    images_alive = {}
+    -- background.image = love.graphics.newImage('assets/images/fase2-1200x675.png')
+    -- background.image2 = love.graphics.newImage('assets/images/fase2-1200x675.png')
+
+    obj = {}
+    obj.source = love.graphics.newImage(image)
     obj.x = 0
     obj.y = 0
-    background.images_alive = {}
-    table.insert(background.images_alive, obj)
-    local obj2 = {}
-    obj2.source = background.image2
+    table.insert(images_alive, obj)
+    obj2 = {}
+    obj2.source = love.graphics.newImage(image)
     obj2.x = 1200
     obj2.y = 0
-    table.insert(background.images_alive, obj2)
-    background.speed = 1
-    background.draw = function ()
-            love.graphics.draw(background.images_alive[1].source, background.images_alive[1].x, background.images_alive[1].y)
-            love.graphics.draw(background.images_alive[2].source, background.images_alive[2].x, background.images_alive[2].y)
+    table.insert(images_alive, obj2)
+    self.speed = 1
+end
+
+function Background:draw()
+
+    love.graphics.draw(images_alive[1].source, images_alive[1].x,
+                       images_alive[1].y)
+    love.graphics.draw(images_alive[2].source, images_alive[2].x,
+                       images_alive[2].y)
+end
+
+function Background:update(dt)
+    if images_alive[1].x + images_alive[1].source:getWidth() < 0 then
+        images_alive[1].x = 0
+        images_alive[2].x = 1200
     end
-    background.update = function (dt)
-        if background.images_alive[1].x + background.images_alive[1].source:getWidth() < 0 then
-            background.images_alive[1].x = 0
-            background.images_alive[2].x = 1200
-        end
-        
-        background.images_alive[1].x = background.images_alive[1].x - (dt * 300)
-        background.images_alive[2].x = background.images_alive[2].x - (dt * 300)
-    end
+    print("update")
+
+    images_alive[1].x = images_alive[1].x - (dt * 300)
+    images_alive[2].x = images_alive[2].x - (dt * 300)
+end
