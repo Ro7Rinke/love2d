@@ -37,17 +37,15 @@ function love.update(dt)
     for i, t in pairs(phase.enemys) do
         if time[i] == nil then
             time[i] = 0;
-    end
+        end
         time[i] = time[i]-dt
         if time[i] <= 0 then
             table.insert(enemies, Enemy(i))
             time[i] = phase.enemys[i]
         end
     end
-
+    function love.keypressed(key) verifyKey(key) end
     if current_screen == 'game' then
-        function love.keypressed(key) verifyKey(key) end
-        
         for i, enemy in ipairs(enemies) do 
             enemy:update(dt) 
             local a_left = player.x
@@ -99,6 +97,7 @@ function love.draw()
     love.graphics.setColor(1,1,1)
     love.graphics.print("PONTUACAO: "..tostring(player.lives), 10, 10)
     if damage == false then
+        current_screen = 'dead'
         love.graphics.draw(dead_window)
         phase.music:stop()
         you_died_music:play()
@@ -110,7 +109,14 @@ function verifyKey(key)
         if key == 'right' or key == 'down' then
             player:changeRole('right')
         end
-        if key == 'left' or key == 'up' then player:changeRole('left') end
+        if key == 'left' or key == 'up' then 
+            player:changeRole('left') 
+        end
+    end
+    if current_screen == 'dead' then
+        if key == 'r' then
+            resetCurrentPhase()
+        end
     end
 end
 
@@ -141,7 +147,7 @@ function selectPhase(phase_id)
     
     if phase_id == 2 then
         current_phase = 2
-        background.image2 = love.graphics.newImage('assets/images/fase2-1200x675.png')
+        phase = Phase(2)
         scoreboard.startAddTime(0)
         scoreboard.startAddTime(2)
         scoreboard.startAddScore(0)
