@@ -21,12 +21,16 @@
 
 ## Lista de tarefas (Colocar aqui o que falta e oq já fez)
 
-- [x] GFM task list 1
-- [x] GFM task list 2
-- [ ] GFM task list 3
-    - [ ] GFM task list 3-1
-    - [ ] GFM task list 3-2
-    - [ ] GFM task list 3-3
-- [ ] GFM task list 4
-    - [ ] GFM task list 4-1
-    - [ ] GFM task list 4-2
+- [X] Opção de restartar a fase depois de morrer
+- [ ] Temporização pra ir para a proxima fase
+- [ ] **SISTEMA DE VIDA DE SCORE**
+	- [ ] Spawn de vida 
+	- [ ] Ganhar vida com o item de vida até 3 e depois somar na score
+- [x] **FASE 1**
+	- [x] Inserção de obstáculos
+- [ ] **FASE 2**
+	- [ ] Inserção de obstáculos
+	- [ ] Ambulância ~~besta~~ 
+- [ ] **FASE 3** 
+	- [ ] Inserção de obstáculos
+	- [ ] Projéteis e colisão deles nos zumbis ora gerar ponto e nos animais pra reduzir pontos
