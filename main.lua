@@ -21,7 +21,7 @@ function love.load()
 
     enemies = {}
     scoreboard = Scoreboard()
-    current_screen = 'game'
+    current_screen = 'start' -- Sempre inicia no start para rolar as cutscene
     love.graphics.setDefaultFilter('nearest', 'nearest')
     you_died_music = love.audio.newSource('assets/soundFX/youdied.mp3', 'static')
     damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav', 'static')
@@ -32,16 +32,21 @@ function love.load()
 end
 
 function love.update(dt)
+    if current_screen == 'start' then
+        phase:update(dt, current_screen)
+    end
+
     function love.keypressed(key) verifyKey(key) end
     tempoCorrido = tempoCorrido + dt;
-    if tempoCorrido >= 10 and phase.id < 3 then
+
+    -- Teste para não conseguir mudar o current_screen quando tiver morto
+    if tempoCorrido >= 10 and phase.id < 3 and current_scene ~= 'dead' then
         current_screen = 'end_phase'
-        --selectPhase(phase.id + 1)
         tempoCorrido = 0;
     end
 
     if current_screen == 'game' then
-        phase:update(dt)
+        phase:update(dt, current_screen)
 
         if player.lives == 3 then
             vidona[1]:setViewport(0, 0, 39, 39)
@@ -93,8 +98,20 @@ function love.update(dt)
 end
 
 function love.draw()
-    if current_screen == 'game' then
+     -- Se a cena for start, inimigos zerados,
+     -- musicas paradas e desenha a tela de
+     -- inicio da fase em questão
+    if current_screen == 'start' then
+        enemys = {}
+        current_screen = 'start'
+        love.graphics.draw(phase.start)
+        phase.music:stop()
+        you_died_music:stop()
+
+    elseif current_screen == 'game' then
         -- Cria o background da fase atual
+        enemys = {}
+        phase.music:play()
         phase.draw()
 
         for i, enemy in ipairs(enemies) do enemy:draw() end
@@ -106,12 +123,13 @@ function love.draw()
         love.graphics.setColor(1, 1, 1)
         love.graphics.print("PONTUACAO: " .. tostring(player.lives), 10, 10)
 
+    -- Se for o final da fase, todos inimigos zerados
+    -- musica parada e tela de fim de fase desenhada
     elseif current_screen == 'end_phase' then
         enemys = {}
         current_screen = 'end_phase'
-        love.graphics.draw(dead_window)
+        love.graphics.draw(phase.fim)
         phase.music:stop()
-        you_died_music:play()
         
     elseif current_screen == 'dead' then
         enemys = {}
@@ -124,12 +142,21 @@ function love.draw()
 end
 
 function verifyKey(key)
+
+    if current_screen == 'start' then
+        if key == 'space' then
+            current_screen = 'game'
+            you_died_music:stop()
+        end
+    end
+
     if current_screen == 'game' then
         if key == 'right' or key == 'down' then
             player:changeRole('right')
         end
         if key == 'left' or key == 'up' then player:changeRole('left') end
     end
+
     if current_screen == 'dead' then
         if key == 'r' then
             resetCurrentPhase()
@@ -139,14 +166,18 @@ function verifyKey(key)
 
     end
 
+    -- Se for o fim de uma fase, após ser
+    -- pressionado o espaço a fase seguinte
+    -- irá começar
     if current_screen == 'end_phase' then
         if key == 'space' then
+            you_died_music:stop()
             selectPhase(phase.id + 1)
         elseif key == 'escape' then
             love.event.quit(0)
         end
-
     end
+
 end
 
 function verifyCollision(a, b)
@@ -169,12 +200,8 @@ function verifyCollision(a, b)
 end
 
 function selectPhase(phase_id)
-    -- current_phase = phase_id
-    phase.music:stop()
 
-   -- if phase_id == 1 then
-      -- player = Player('normal')
-    --end
+    phase.music:stop()
 
     phase = Phase(phase_id)
     player = Player(phase.player)

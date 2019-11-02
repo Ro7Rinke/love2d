@@ -23,11 +23,15 @@
 
 - [X] Opção de restartar a fase depois de morrer
 - [ ] Temporização pra ir para a proxima fase
+- [X] Cenas no inicio e fim de cada fase
+- [X] Startar o game após pressionar espaço
+- [ ] Animação da cena
+- [ ] Desbugar inimigos da fase anterior que ainda continuam na seguinte
 - [ ] **SISTEMA DE VIDA DE SCORE**
 	- [ ] Spawn de vida 
 	- [ ] Ganhar vida com o item de vida até 3 e depois somar na score
-- [x] **FASE 1**
-	- [x] Inserção de obstáculos
+- [X] **FASE 1**
+	- [X] Inserção de obstáculos
 - [ ] **FASE 2**
 	- [ ] Inserção de obstáculos
 	- [ ] Ambulância ~~besta~~ 
