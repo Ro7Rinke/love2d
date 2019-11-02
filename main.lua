@@ -34,8 +34,9 @@ end
 function love.update(dt)
     function love.keypressed(key) verifyKey(key) end
     tempoCorrido = tempoCorrido + dt;
-    if tempoCorrido >= phase.duration and phase.id < 3 then
-        selectPhase(phase.id + 1)
+    if tempoCorrido >= 10 and phase.id < 3 then
+        current_screen = 'end_phase'
+        --selectPhase(phase.id + 1)
         tempoCorrido = 0;
     end
 
@@ -104,6 +105,13 @@ function love.draw()
         love.graphics.draw(heart, vidona[3], 106, 20)
         love.graphics.setColor(1, 1, 1)
         love.graphics.print("PONTUACAO: " .. tostring(player.lives), 10, 10)
+
+    elseif current_screen == 'end_phase' then
+        enemys = {}
+        current_screen = 'end_phase'
+        love.graphics.draw(dead_window)
+        phase.music:stop()
+        you_died_music:play()
         
     elseif current_screen == 'dead' then
         enemys = {}
@@ -125,7 +133,16 @@ function verifyKey(key)
     if current_screen == 'dead' then
         if key == 'r' then
             resetCurrentPhase()
-        elseif key == 'esc' then
+        elseif key == 'escape' then
+            love.event.quit(0)
+        end
+
+    end
+
+    if current_screen == 'end_phase' then
+        if key == 'space' then
+            selectPhase(phase.id + 1)
+        elseif key == 'escape' then
             love.event.quit(0)
         end
 
