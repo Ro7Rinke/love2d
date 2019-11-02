@@ -8,10 +8,10 @@ function love.load()
     require 'src/background'
 
     -- Objeto da fase atual
-    phase = Phase(3)
+    phase = Phase(1)
 
-    player = Player('special')
-    heart = love.graphics.newImage('assets/images/heart-39x39.png')
+    player = Player(phase.player)
+     heart = love.graphics.newImage('assets/images/heart-39x39.png')
     dead_window = love.graphics.newImage('assets/images/dead_window.png')
     vidona = {
         love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
@@ -27,15 +27,27 @@ function love.load()
     damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav', 'static')
 
     time = {}
-    x = 3
+
+    tempoCorrido = 0;
 
 end
 
 function love.update(dt)
     function love.keypressed(key) verifyKey(key) end
+    tempoCorrido = tempoCorrido + dt;
+    if tempoCorrido >= 10 and phase.id < 3 then
+        selectPhase(phase.id + 1)
+        tempoCorrido = 0;
+    end
 
     if current_screen == 'game' then
         phase:update(dt)
+
+        if player.lives == 3 then
+            vidona[1]:setViewport(0, 0, 39, 39)
+            vidona[2]:setViewport(0, 0, 39, 39)
+            vidona[3]:setViewport(0, 0, 39, 39)
+        end
 
         -- Faz com que todos os tipos de inimigos tenham seu tempo atualizado
         -- Agora os inimigos são pegos diretamenta do objeto da fase
@@ -55,11 +67,6 @@ function love.update(dt)
             local b_right = enemy.x + enemy.width
             local b_center = (b_left + b_right) / 2
 
-            if player.lives == 3 then
-                vidona[1]:setViewport(0, 0, 39, 39)
-                vidona[2]:setViewport(0, 0, 39, 39)
-                vidona[3]:setViewport(0, 0, 39, 39)
-            end
             -- Se a posiçao do player ainda não passou
             -- a metade do tamanho do inimigo ele verifica
             -- se há colisão.
@@ -99,7 +106,7 @@ function love.draw()
         love.graphics.draw(heart, vidona[3], 106, 20)
         love.graphics.setColor(1, 1, 1)
         love.graphics.print("PONTUACAO: " .. tostring(player.lives), 10, 10)
-        you_died_music:stop()
+        
     elseif current_screen == 'dead' then
         enemys = {}
         current_screen = 'dead'
@@ -148,15 +155,21 @@ end
 
 function selectPhase(phase_id)
     -- current_phase = phase_id
+    phase.music:stop()
 
-    print("SELECT FASE")
+   -- if phase_id == 1 then
+      -- player = Player('normal')
+    --end
+
     phase = Phase(phase_id)
+    player = Player(phase.player)
 
     current_screen = 'game'
 end
 
 function resetCurrentPhase()
     player:revive()
+    you_died_music:stop()
     current_screen = 'game'
     selectPhase(phase.id)
 end

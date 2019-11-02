@@ -33,4 +33,4 @@
 	- [ ] Ambulância ~~besta~~ 
 - [ ] **FASE 3** 
 	- [ ] Inserção de obstáculos
-	- [ ] Projéteis e colisão deles nos zumbis ora gerar ponto e nos animais pra reduzir pontos
+	- [ ] Projéteis e colisão deles nos zumbis pra gerar ponto e nos animais pra reduzir pontos
