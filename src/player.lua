@@ -42,7 +42,7 @@ function Player:new(type)
     self.x = 200
     self.y = 0
     self.timer = 0
-    self.current_phase = 1
+    --self.current_phase = 1
 end
 
 function Player:update(dt)

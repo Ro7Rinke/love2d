@@ -7,15 +7,17 @@ function love.load()
     require 'src/phase'
     require 'src/background'
 
-    --Objeto da fase atual
-    phase = Phase(1);
+    -- Objeto da fase atual
+    phase = Phase(3)
 
     player = Player('special')
     heart = love.graphics.newImage('assets/images/heart-39x39.png')
     dead_window = love.graphics.newImage('assets/images/dead_window.png')
-    vidona = {love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
-              love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
-              love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()) }
+    vidona = {
+        love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
+        love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
+        love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions())
+    }
 
     enemies = {}
     scoreboard = Scoreboard()
@@ -30,24 +32,23 @@ function love.load()
 end
 
 function love.update(dt)
-    phase:update(dt)
-
-    --Faz com que todos os tipos de inimigos tenham seu tempo atualizado
-    --Agora os inimigos são pegos diretamenta do objeto da fase
-    for i, t in pairs(phase.enemys) do
-        if time[i] == nil then
-            time[i] = 0;
-        end
-        time[i] = time[i]-dt
-        if time[i] <= 0 then
-            table.insert(enemies, Enemy(i))
-            time[i] = phase.enemys[i]
-        end
-    end
     function love.keypressed(key) verifyKey(key) end
+
     if current_screen == 'game' then
-        for i, enemy in ipairs(enemies) do 
-            enemy:update(dt) 
+        phase:update(dt)
+        -- Faz com que todos os tipos de inimigos tenham seu tempo atualizado
+        -- Agora os inimigos são pegos diretamenta do objeto da fase
+        for i, t in pairs(phase.enemys) do
+            if time[i] == nil then time[i] = 0 end
+            time[i] = time[i] - dt
+            if time[i] <= 0 then
+                table.insert(enemies, Enemy(i))
+                time[i] = phase.enemys[i]
+            end
+        end
+
+        for i, enemy in ipairs(enemies) do
+            enemy:update(dt)
             local a_left = player.x
             local b_left = enemy.x
             local b_right = enemy.x + enemy.width
@@ -58,20 +59,20 @@ function love.update(dt)
             -- se há colisão.
             if a_left < b_center then
                 if verifyCollision(player, enemy) then
-                  damage_girl:play()
-                  damage = player:takeDamage()
-                  
-                  if damage == true then
-                    vidona[x]:setViewport(39, 0, 39, 39)
-                    x = x - 1
-              
-                    --damage_girl:stop()
-                  else
-                    vidona[x]:setViewport(39, 0, 39, 39)
-                  end
-                  
+                    damage_girl:play()
+                    damage = player:takeDamage()
 
-                  table.remove( enemies,i )
+                    if damage == true then
+                        vidona[x]:setViewport(39, 0, 39, 39)
+                        x = x - 1
+
+                        -- damage_girl:stop()
+                    else
+                        vidona[x]:setViewport(39, 0, 39, 39)
+                        current_screen = 'dead'
+                    end
+
+                    table.remove(enemies, i)
                 end
             end
 
@@ -82,21 +83,21 @@ end
 
 function love.draw()
     if current_screen == 'game' then
-        --Cria o background da fase atual
+        -- Cria o background da fase atual
         phase.draw()
-    
+
     end
-    
-    for i, enemy in ipairs(enemies) do
-        enemy:draw()
-    end
+
+    for i, enemy in ipairs(enemies) do enemy:draw() end
     player:draw()
     love.graphics.draw(heart, vidona[1], 20, 20)
     love.graphics.draw(heart, vidona[2], 63, 20)
     love.graphics.draw(heart, vidona[3], 106, 20)
-    love.graphics.setColor(1,1,1)
-    love.graphics.print("PONTUACAO: "..tostring(player.lives), 10, 10)
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print("PONTUACAO: " .. tostring(player.lives), 10, 10)
+    
     if damage == false then
+        print("damage")
         current_screen = 'dead'
         love.graphics.draw(dead_window)
         phase.music:stop()
@@ -109,17 +110,16 @@ function verifyKey(key)
         if key == 'right' or key == 'down' then
             player:changeRole('right')
         end
-        if key == 'left' or key == 'up' then 
-            player:changeRole('left') 
-        end
+        if key == 'left' or key == 'up' then player:changeRole('left') end
     end
     if current_screen == 'dead' then
         if key == 'r' then
+            print("IF VERIFY")
             resetCurrentPhase()
         elseif key == 'esc' then
-          love.event.quit(0)
-        end 
-            
+            love.event.quit(0)
+        end
+
     end
 end
 
@@ -143,30 +143,17 @@ function verifyCollision(a, b)
 end
 
 function selectPhase(phase_id)
-    if phase_id == 1 then
-      phase = 1
-    end
-    
-    if phase_id == 2 then
-        current_phase = 2
-        phase = Phase(2)
-        scoreboard.startAddTime(0)
-        scoreboard.startAddTime(2)
-        scoreboard.startAddScore(0)
-        scoreboard.startAddScore(2)
-    end
+    -- current_phase = phase_id
 
-    if phase_id == 3 then
-        phase = Phase(3)
-        scoreboard.startAddTime(0)
-        scoreboard.startAddTime(2)
-        scoreboard.startAddScore(0)
-        scoreboard.startAddScore(2)
-    end
+    print("SELECT FASE")
+    phase = Phase(phase_id)
 
+    current_screen = 'game'
 end
 
 function resetCurrentPhase()
     player:revive()
-    selectPhase(player.current_phase)
+    x = 3
+    current_screen = 'game'
+    selectPhase(phase.id)
 end
