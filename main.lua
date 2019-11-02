@@ -8,7 +8,7 @@ function love.load()
     require 'src/background'
 
     --Objeto da fase atual
-    phase = Phase(2);
+    phase = Phase(1);
 
     player = Player('special')
     heart = love.graphics.newImage('assets/images/heart-39x39.png')
@@ -64,7 +64,7 @@ function love.update(dt)
                   if damage == true then
                     vidona[x]:setViewport(39, 0, 39, 39)
                     x = x - 1
-                    
+              
                     --damage_girl:stop()
                   else
                     vidona[x]:setViewport(39, 0, 39, 39)
@@ -153,6 +153,16 @@ function selectPhase(phase_id)
         scoreboard.startAddScore(0)
         scoreboard.startAddScore(2)
     end
+
+    if phase_id == 3 then
+        background.image = love.graphics.newImage('assets/images/fase3-1200x675.png')
+        phase = Phase(3)
+        scoreboard.startAddTime(0)
+        scoreboard.startAddTime(2)
+        scoreboard.startAddScore(0)
+        scoreboard.startAddScore(2)
+    end
+
 end
 
 function resetCurrentPhase()
