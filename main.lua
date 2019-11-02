@@ -116,7 +116,10 @@ function verifyKey(key)
     if current_screen == 'dead' then
         if key == 'r' then
             resetCurrentPhase()
-        end
+        elseif key == 'esc' then
+          love.event.quit(0)
+        end 
+            
     end
 end
 
@@ -141,8 +144,7 @@ end
 
 function selectPhase(phase_id)
     if phase_id == 1 then
-      current_phase = 1
-      background.image = love.graphics.newImage('assets/images/fase1-1200x675.png')
+      phase = 1
     end
     
     if phase_id == 2 then
@@ -155,7 +157,6 @@ function selectPhase(phase_id)
     end
 
     if phase_id == 3 then
-        background.image = love.graphics.newImage('assets/images/fase3-1200x675.png')
         phase = Phase(3)
         scoreboard.startAddTime(0)
         scoreboard.startAddTime(2)

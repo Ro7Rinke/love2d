@@ -13,16 +13,43 @@ function Enemy:new(type)
         self.width = 102
         self.height = 192
         self.num_frames = 3 -- Total de frames
+
     elseif self.type == "stone" then
         self.image = love.graphics.newImage('assets/images/stone-140x140.png')
         self.width = 140
         self.height = 140
         self.num_frames = 1 -- Total de frames
-    else
+
+    elseif self.type == "bisturi" then
+        self.image = love.graphics.newImage('assets/images/bisturi-72x75.png')
+        self.width = 72
+        self.height = 75
+        self.num_frames = 4 -- Total de frames
+
+    elseif self.type == "buraco" then
         self.image = love.graphics.newImage('assets/images/buraco-102x192.png')
         self.width = 102
         self.height = 192
         self.num_frames = 3 -- Total de frames
+
+    elseif self.type == "fox" then
+        self.image = love.graphics.newImage('assets/images/buraco-120x96.png')
+        self.width = 120
+        self.height = 96
+        self.num_frames = 5 -- Total de frames
+
+    elseif self.type == "horse" then
+        self.image = love.graphics.newImage('assets/images/buraco-240x192.png')
+        self.width = 240
+        self.height = 192
+        self.num_frames = 5 -- Total de frames
+
+    elseif self.type == "moose" then
+        self.image = love.graphics.newImage('assets/images/buraco-240x192.png')
+        self.width = 240
+        self.height = 192
+        self.num_frames = 5 -- Total de frames
+
     end
 
     self.frames = love.graphics.newQuad(0, 0, self.image:getWidth(), self.image:getHeight(), self.image:getDimensions()) -- Faz com que carregue a imagem inteira antes de desenhar na tela
