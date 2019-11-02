@@ -34,7 +34,7 @@ end
 function love.update(dt)
     function love.keypressed(key) verifyKey(key) end
     tempoCorrido = tempoCorrido + dt;
-    if tempoCorrido >= 10 and phase.id < 3 then
+    if tempoCorrido >= phase.duration and phase.id < 3 then
         selectPhase(phase.id + 1)
         tempoCorrido = 0;
     end
@@ -167,6 +167,7 @@ end
 
 function resetCurrentPhase()
     player:revive()
+    tempoCorrido = 0;
     you_died_music:stop()
     current_screen = 'game'
     selectPhase(phase.id)
