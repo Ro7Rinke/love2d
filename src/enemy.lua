@@ -37,18 +37,21 @@ function Enemy:new(type)
         self.width = 120
         self.height = 96
         self.num_frames = 5 -- Total de frames
+        self.speed = 12 -- Velocidade 
 
     elseif self.type == "horse" then
         self.image = love.graphics.newImage('assets/images/horse-240x192.png')
         self.width = 240
         self.height = 192
         self.num_frames = 5 -- Total de frames
+        self.speed = 12 -- Velocidade 
 
     elseif self.type == "moose" then
         self.image = love.graphics.newImage('assets/images/moose-240x192.png')
         self.width = 240
         self.height = 192
         self.num_frames = 5 -- Total de frames
+        self.speed = 12 -- Velocidade 
 
     end
 
