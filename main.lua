@@ -36,6 +36,7 @@ function love.update(dt)
 
     if current_screen == 'game' then
         phase:update(dt)
+
         -- Faz com que todos os tipos de inimigos tenham seu tempo atualizado
         -- Agora os inimigos são pegos diretamenta do objeto da fase
         for i, t in pairs(phase.enemys) do
@@ -54,6 +55,11 @@ function love.update(dt)
             local b_right = enemy.x + enemy.width
             local b_center = (b_left + b_right) / 2
 
+            if player.lives == 3 then
+                vidona[1]:setViewport(0, 0, 39, 39)
+                vidona[2]:setViewport(0, 0, 39, 39)
+                vidona[3]:setViewport(0, 0, 39, 39)
+            end
             -- Se a posiçao do player ainda não passou
             -- a metade do tamanho do inimigo ele verifica
             -- se há colisão.
@@ -63,12 +69,11 @@ function love.update(dt)
                     damage = player:takeDamage()
 
                     if damage == true then
-                        vidona[x]:setViewport(39, 0, 39, 39)
-                        x = x - 1
+                        vidona[player.lives]:setViewport(39, 0, 39, 39)
 
                         -- damage_girl:stop()
                     else
-                        vidona[x]:setViewport(39, 0, 39, 39)
+                        vidona[player.lives]:setViewport(39, 0, 39, 39)
                         current_screen = 'dead'
                     end
 
@@ -86,23 +91,23 @@ function love.draw()
         -- Cria o background da fase atual
         phase.draw()
 
-    end
-
-    for i, enemy in ipairs(enemies) do enemy:draw() end
-    player:draw()
-    love.graphics.draw(heart, vidona[1], 20, 20)
-    love.graphics.draw(heart, vidona[2], 63, 20)
-    love.graphics.draw(heart, vidona[3], 106, 20)
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.print("PONTUACAO: " .. tostring(player.lives), 10, 10)
-    
-    if damage == false then
-        print("damage")
+        for i, enemy in ipairs(enemies) do enemy:draw() end
+        player:draw()
+        
+        love.graphics.draw(heart, vidona[1], 20, 20)
+        love.graphics.draw(heart, vidona[2], 63, 20)
+        love.graphics.draw(heart, vidona[3], 106, 20)
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.print("PONTUACAO: " .. tostring(player.lives), 10, 10)
+        you_died_music:stop()
+    elseif current_screen == 'dead' then
+        enemys = {}
         current_screen = 'dead'
         love.graphics.draw(dead_window)
         phase.music:stop()
         you_died_music:play()
-    end
+    end   
+   
 end
 
 function verifyKey(key)
@@ -114,7 +119,6 @@ function verifyKey(key)
     end
     if current_screen == 'dead' then
         if key == 'r' then
-            print("IF VERIFY")
             resetCurrentPhase()
         elseif key == 'esc' then
             love.event.quit(0)
@@ -153,7 +157,6 @@ end
 
 function resetCurrentPhase()
     player:revive()
-    x = 3
     current_screen = 'game'
     selectPhase(phase.id)
 end

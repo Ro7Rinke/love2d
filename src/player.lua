@@ -38,7 +38,7 @@ function Player:new(type)
     self.right_role_y = 435
     self.is_alive = true
     self.lives = 3
-    self.revives = 0
+    --self.revives = 0
     self.x = 200
     self.y = 0
     self.timer = 0
@@ -115,6 +115,6 @@ end
 
 function Player:revive()
     self.lives = 3
-    self.revives = self.revives + 1
+    --self.revives = self.revives + 1
     self.is_alive = true
 end
