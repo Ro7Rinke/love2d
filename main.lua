@@ -27,7 +27,6 @@ function love.load()
     damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav', 'static')
 
     time = {}
-
     tempoCorrido = 0;
 
 end
@@ -73,9 +72,8 @@ function love.update(dt)
             if a_left < b_center then
                 if verifyCollision(player, enemy) then
                     damage_girl:play()
-                    damage = player:takeDamage()
 
-                    if damage == true then
+                    if player.lives > 1 then
                         vidona[player.lives]:setViewport(39, 0, 39, 39)
 
                         -- damage_girl:stop()
@@ -83,7 +81,7 @@ function love.update(dt)
                         vidona[player.lives]:setViewport(39, 0, 39, 39)
                         current_screen = 'dead'
                     end
-
+                     player:takeDamage()
                     table.remove(enemies, i)
                 end
             end
