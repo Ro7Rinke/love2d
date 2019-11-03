@@ -28,13 +28,13 @@
 - [ ] Animação da cena
 - [ ] Desbugar inimigos da fase anterior que ainda continuam na seguinte
 - [ ] **SISTEMA DE VIDA DE SCORE**
-	- [ ] Spawn de vida 
+	- [X] Spawn de vida 
 	- [ ] Ganhar vida com o item de vida até 3 e depois somar na score
 - [X] **FASE 1**
 	- [X] Inserção de obstáculos
 - [ ] **FASE 2**
 	- [ ] Inserção de obstáculos
-	- [ ] Ambulância ~~besta~~ 
+	- [X] Ambulância ~~besta~~ 
 - [ ] **FASE 3** 
 	- [ ] Inserção de obstáculos
 	- [ ] Projéteis e colisão deles nos zumbis pra gerar ponto e nos animais pra reduzir pontos

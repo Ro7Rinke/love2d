@@ -25,11 +25,13 @@ function love.load()
     scoreboard = Scoreboard()
     current_screen = 'start' -- Sempre inicia no start para rolar as cutscene
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    you_died_music = love.audio.newSource('assets/soundFX/youdied.mp3', 'static')
-    damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav', 'static')
+    you_died_music = love.audio
+                         .newSource('assets/soundFX/youdied.mp3', 'static')
+    damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav',
+                                       'static')
 
     time = {}
-    tempoCorrido = 0;
+    tempoCorrido = 0
 
 end
 
@@ -54,18 +56,20 @@ function love.update(dt)
         -- Faz com que todos os tipos de inimigos tenham seu tempo atualizado
         -- Agora os inimigos são pegos diretamenta do objeto da fase
         for i, t in pairs(phase.enemys) do
-
-            if time[i] == nil then time[i] = 0 end
-
-            time[i] = time[i] - (1 * dt)
-
-            
-
+            if time[i] == nil then time[i] = phase.enemys[i] end
+            time[i] = time[i] - dt
             if time[i] <= 0 then
-
-                table.insert(enemies, Enemy(i))
-                time[i] = phase.enemys[i]
-
+                local newEnemy = Enemy(i)
+                local colidiu = false
+                for i, enemy in ipairs(enemies) do
+                    colidiu = verifyCollision(enemy, newEnemy)
+                    if colidiu == true then break end
+                end
+                if colidiu == false then
+                    table.insert(enemies, newEnemy)
+                    time[i] = phase.enemys[i]
+                end
+                break
             end
 
         end
@@ -89,16 +93,20 @@ function love.update(dt)
                 if verifyCollision(player, enemy) then
                     damage_girl:play()
 
-                    if player.lives > 1 then
-                        life[player.lives]:setViewport(39, 0, 39, 39)
+                    if enemy.damage then
+                        if player.lives > 1 then
+                            life[player.lives]:setViewport(39, 0, 39, 39)
 
-                        -- damage_girl:stop()
+                            -- damage_girl:stop()
+                        else
+                            life[player.lives]:setViewport(39, 0, 39, 39)
+                            current_screen = 'dead'
+                        end
+                        player:takeDamage()
                     else
-                        life[player.lives]:setViewport(39, 0, 39, 39)
-                        current_screen = 'dead'
+                        player:giveLife()
+                        life[player.lives]:setViewport(0, 0, 39, 39)
                     end
-
-                    player:takeDamage()
                     table.remove(enemies, i)
                 end
             end
@@ -116,9 +124,9 @@ function love.update(dt)
 end
 
 function love.draw()
-     -- Se a cena for start, inimigos zerados,
-     -- musicas paradas e desenha a tela de
-     -- inicio da fase em questão
+    -- Se a cena for start, inimigos zerados,
+    -- musicas paradas e desenha a tela de
+    -- inicio da fase em questão
     if current_screen == 'start' then
         enemys = {}
         love.graphics.draw(phase.start)
@@ -147,15 +155,15 @@ function love.draw()
         current_screen = 'end_phase'
         love.graphics.draw(phase.fim)
         phase.music:stop()
-        
+
     elseif current_screen == 'dead' then
         enemys = {}
         current_screen = 'dead'
         love.graphics.draw(dead_window)
         phase.music:stop()
         you_died_music:play()
-    end   
-   
+    end
+
 end
 
 function verifyKey(key)
@@ -240,7 +248,7 @@ end
 function resetCurrentPhase()
 
     player:revive()
-    tempoCorrido = 0;
+    tempoCorrido = 0
     you_died_music:stop()
     current_screen = 'game'
     selectPhase(phase.id)

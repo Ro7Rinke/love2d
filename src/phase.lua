@@ -14,7 +14,7 @@ function Phase:new(id)
         self.width = 1200
         self.height = 675
 
-        self.enemys = {zombie = 3, bisturi = 8} -- Inimigos da fase
+        self.enemys = {zombie = 3, bisturi = 8, life = 5} -- Inimigos da fase
         self.duration = 158 -- Duraçao que a fase pode vir a ter [NÃO IMPLEMENTADO]
 
         self.music = love.audio.newSource('assets/soundFX/tension_music.mp3', 'static') -- MUSICA DA FASE
@@ -39,7 +39,6 @@ function Phase:new(id)
         self.music:setVolume(0.5) -- 50% volume
 
     elseif self.id == 3 then
-
         bg = Background('assets/images/fase3-1200x675.png') -- Imagem de fundo da fase
         self.start = love.graphics.newImage(
                          'assets/images/testeInicio-1200x675.png')

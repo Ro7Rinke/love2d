@@ -113,6 +113,14 @@ function Player:takeDamage()
 
 end
 
+function Player:giveLife()
+    if self.lives < 3 then
+        self.lives = self.lives +1 
+        return true
+    end
+    return false
+end
+
 function Player:revive()
     self.lives = 3
     --self.revives = self.revives + 1
