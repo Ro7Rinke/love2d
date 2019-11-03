@@ -10,6 +10,8 @@ function Player:new(type)
         self.image = love.graphics.newImage('assets/images/runNurse-192x192.png')
         self.width = 192
         self.height = 192
+        self.damage = love.audio.newSource('assets/soundFX/damage_girl.wav', 'static')
+
     else
         self.speed = 12 -- Velocidade 
         self.num_frames = 4 -- Total de frames
@@ -17,6 +19,7 @@ function Player:new(type)
         self.image = love.graphics.newImage('assets/images/ambulancia_song-331x197.png')
         self.width = 331
         self.height = 197
+        self.damage = love.audio.newSource('assets/soundFX/damage_ambulance.wav', 'static')
 
     end
 

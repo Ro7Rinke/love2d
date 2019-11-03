@@ -6,8 +6,7 @@ function Phase:new(id)
 
     if self.id == 1 then
         bg = Background('assets/images/fase1-1200x675.png') -- Imagem de fundo da fase
-        self.start = love.graphics.newImage(
-                         'assets/images/testeInicio-1200x675.png')
+        self.start = love.graphics.newImage('assets/images/start_fase_1.png')
         self.fim = love.graphics.newImage('assets/images/testeFim-1200x675.png')
         self.speed = 2 -- Velocidade 
         self.num_frames = 2 -- Total de frames
@@ -23,8 +22,7 @@ function Phase:new(id)
     elseif self.id == 2 then
         self.player = 'special'
         bg = Background('assets/images/fase2-1200x675.png') -- Imagem de fundo da fase
-        self.start = love.graphics.newImage(
-                         'assets/images/testeInicio-1200x675.png')
+        self.start = love.graphics.newImage('assets/images/start_fase_2.png')
         self.fim = love.graphics.newImage('assets/images/testeFim-1200x675.png')
         self.speed = 2 -- Velocidade 
         self.num_frames = 2 -- Total de frames
@@ -40,8 +38,7 @@ function Phase:new(id)
 
     elseif self.id == 3 then
         bg = Background('assets/images/fase3-1200x675.png') -- Imagem de fundo da fase
-        self.start = love.graphics.newImage(
-                         'assets/images/testeInicio-1200x675.png')
+        self.start = love.graphics.newImage('assets/images/start_fase_3.png')
         self.fim = love.graphics.newImage('assets/images/testeFim-1200x675.png')
         self.speed = 2 -- Velocidade 
         self.num_frames = 2 -- Total de frames

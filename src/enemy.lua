@@ -123,5 +123,8 @@ function Enemy:update(dt)
     end
 end
 
-function Enemy:draw() love.graphics
-    .draw(self.image, self.frames, self.x, self.y) end
+function Enemy:draw()
+
+    love.graphics.draw(self.image, self.frames, self.x, self.y)
+    
+ end
