@@ -5,9 +5,9 @@ function Enemy:new(type)
     self.anim_timer = 1 / self.speed -- Temporizador da animação
     self.frame = 0 -- Frame atual
     self.xoffset = 0 -- Espaçamento entre frames 
-
-    self.type = type
     
+    self.type = type
+    self.damage = true
     if self.type == "zombie" then
         self.image = love.graphics.newImage('assets/images/zombie-102x192.png')
         self.width = 102
@@ -53,6 +53,13 @@ function Enemy:new(type)
         self.num_frames = 5 -- Total de frames
         self.speed = 12 -- Velocidade 
 
+    elseif self.type == "life" then
+        self.image = love.graphics.newImage('assets/images/medicalKit-60x65.png')
+        self.width = 60
+        self.height = 65
+        self.num_frames = 4 -- Total de frames
+        self.speed = 12 -- Velocidade 
+        self.damage = false
     end
 
     self.frames = love.graphics.newQuad(0, 0, self.image:getWidth(), self.image:getHeight(), self.image:getDimensions()) -- Faz com que carregue a imagem inteira antes de desenhar na tela

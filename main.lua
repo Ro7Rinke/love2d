@@ -11,7 +11,7 @@ function love.load()
     phase = Phase(1)
 
     player = Player(phase.player)
-     heart = love.graphics.newImage('assets/images/heart-39x39.png')
+    heart = love.graphics.newImage('assets/images/heart-39x39.png')
     dead_window = love.graphics.newImage('assets/images/dead_window.png')
     vidona = {
         love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),
@@ -23,26 +23,26 @@ function love.load()
     scoreboard = Scoreboard()
     current_screen = 'start' -- Sempre inicia no start para rolar as cutscene
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    you_died_music = love.audio.newSource('assets/soundFX/youdied.mp3', 'static')
-    damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav', 'static')
+    you_died_music = love.audio
+                         .newSource('assets/soundFX/youdied.mp3', 'static')
+    damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav',
+                                       'static')
 
     time = {}
-    tempoCorrido = 0;
+    tempoCorrido = 0
 
 end
 
 function love.update(dt)
-    if current_screen == 'start' then
-        phase:update(dt, current_screen)
-    end
+    if current_screen == 'start' then phase:update(dt, current_screen) end
 
     function love.keypressed(key) verifyKey(key) end
-    tempoCorrido = tempoCorrido + dt;
+    tempoCorrido = tempoCorrido + dt
 
     -- Teste para não conseguir mudar o current_screen quando tiver morto
     if tempoCorrido >= 10 and phase.id < 3 and current_scene ~= 'dead' then
         current_screen = 'end_phase'
-        tempoCorrido = 0;
+        tempoCorrido = 0
     end
 
     if current_screen == 'game' then
@@ -79,15 +79,20 @@ function love.update(dt)
                 if verifyCollision(player, enemy) then
                     damage_girl:play()
 
-                    if player.lives > 1 then
-                        vidona[player.lives]:setViewport(39, 0, 39, 39)
+                    if enemy.damage then
+                        if player.lives > 1 then
+                            vidona[player.lives]:setViewport(39, 0, 39, 39)
 
-                        -- damage_girl:stop()
+                            -- damage_girl:stop()
+                        else
+                            vidona[player.lives]:setViewport(39, 0, 39, 39)
+                            current_screen = 'dead'
+                        end
+                        player:takeDamage()
                     else
-                        vidona[player.lives]:setViewport(39, 0, 39, 39)
-                        current_screen = 'dead'
+                        player:giveLife()
+                        vidona[player.lives]:setViewport(0, 0, 39, 39)
                     end
-                     player:takeDamage()
                     table.remove(enemies, i)
                 end
             end
@@ -98,9 +103,9 @@ function love.update(dt)
 end
 
 function love.draw()
-     -- Se a cena for start, inimigos zerados,
-     -- musicas paradas e desenha a tela de
-     -- inicio da fase em questão
+    -- Se a cena for start, inimigos zerados,
+    -- musicas paradas e desenha a tela de
+    -- inicio da fase em questão
     if current_screen == 'start' then
         enemys = {}
         current_screen = 'start'
@@ -116,29 +121,29 @@ function love.draw()
 
         for i, enemy in ipairs(enemies) do enemy:draw() end
         player:draw()
-        
+
         love.graphics.draw(heart, vidona[1], 20, 20)
         love.graphics.draw(heart, vidona[2], 63, 20)
         love.graphics.draw(heart, vidona[3], 106, 20)
         love.graphics.setColor(1, 1, 1)
         love.graphics.print("PONTUACAO: " .. tostring(player.lives), 10, 10)
 
-    -- Se for o final da fase, todos inimigos zerados
-    -- musica parada e tela de fim de fase desenhada
+        -- Se for o final da fase, todos inimigos zerados
+        -- musica parada e tela de fim de fase desenhada
     elseif current_screen == 'end_phase' then
         enemys = {}
         current_screen = 'end_phase'
         love.graphics.draw(phase.fim)
         phase.music:stop()
-        
+
     elseif current_screen == 'dead' then
         enemys = {}
         current_screen = 'dead'
         love.graphics.draw(dead_window)
         phase.music:stop()
         you_died_music:play()
-    end   
-   
+    end
+
 end
 
 function verifyKey(key)
@@ -211,7 +216,7 @@ end
 
 function resetCurrentPhase()
     player:revive()
-    tempoCorrido = 0;
+    tempoCorrido = 0
     you_died_music:stop()
     current_screen = 'game'
     selectPhase(phase.id)
