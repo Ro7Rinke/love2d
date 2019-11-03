@@ -30,13 +30,13 @@ function love.load()
     damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav',
                                        'static')
 
+    cdLanes = {0,0,0}
     time = {}
     tempoCorrido = 0
 
 end
 
 function love.update(dt)
-
     if current_screen == 'start' then
         phase:update(dt, current_screen)
     end
@@ -53,6 +53,10 @@ function love.update(dt)
             life[3]:setViewport(0, 0, 39, 39)
         end
 
+        for i,lane in ipairs(cdLanes) do
+            cdLanes[i] = cdLanes[i]+dt
+        end
+
         -- Faz com que todos os tipos de inimigos tenham seu tempo atualizado
         -- Agora os inimigos são pegos diretamenta do objeto da fase
         for i, t in pairs(phase.enemys) do
@@ -65,9 +69,10 @@ function love.update(dt)
                     colidiu = verifyCollision(enemy, newEnemy)
                     if colidiu == true then break end
                 end
-                if colidiu == false then
+                if colidiu == false and cdLanes[newEnemy.current_role] > 4.8 then
                     table.insert(enemies, newEnemy)
                     time[i] = phase.enemys[i]
+                    cdLanes[newEnemy.current_role] = 0
                 end
                 break
             end
