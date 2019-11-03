@@ -30,6 +30,7 @@ function love.load()
     --damage_girl = love.audio.newSource('assets/soundFX/damage_girl.wav',
       --                                 'static')
 
+    cdLanes = {0,0,0}
     time = {}
     tempoCorrido = 0
 
@@ -40,6 +41,7 @@ function love.update(dt)
     -- Quando a fase esta no começo
     -- faz com que a cutscene do inicio seja
     -- carregada e tambem remove os inimigos da tela
+
     if current_screen == 'start' then
          phase:update(dt, current_screen) 
          table.remove(enemies)
@@ -55,6 +57,10 @@ function love.update(dt)
             life[1]:setViewport(0, 0, 39, 39)
             life[2]:setViewport(0, 0, 39, 39)
             life[3]:setViewport(0, 0, 39, 39)
+        end
+
+        for i,lane in ipairs(cdLanes) do
+            cdLanes[i] = cdLanes[i]+dt
         end
 
         -- Faz com que todos os tipos de inimigos tenham seu tempo atualizado
@@ -77,12 +83,10 @@ function love.update(dt)
                     if colidiu == true then break end
 
                 end
-
-                if colidiu == false then
-
+                if colidiu == false and cdLanes[newEnemy.current_role] > 4.8 then
                     table.insert(enemies, newEnemy)
                     time[i] = phase.enemys[i]
-
+                    cdLanes[newEnemy.current_role] = 0
                 end
 
                 break
