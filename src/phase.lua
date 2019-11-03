@@ -41,7 +41,6 @@ function Phase:new(id)
         --self.music:play()
 
     elseif self.id == 3 then
-
         bg = Background('assets/images/fase3-1200x675.png') -- Imagem de fundo da fase
         self.start = love.graphics.newImage(
                          'assets/images/testeInicio-1200x675.png')

@@ -57,11 +57,20 @@ function love.update(dt)
         -- Faz com que todos os tipos de inimigos tenham seu tempo atualizado
         -- Agora os inimigos são pegos diretamenta do objeto da fase
         for i, t in pairs(phase.enemys) do
-            if time[i] == nil then time[i] = 0 end
+            if time[i] == nil then time[i] = phase.enemys[i] end
             time[i] = time[i] - dt
             if time[i] <= 0 then
-                table.insert(enemies, Enemy(i))
-                time[i] = phase.enemys[i]
+                local newEnemy = Enemy(i)
+                local colidiu = false
+                for i, enemy in ipairs(enemies) do
+                    colidiu = verifyCollision(enemy, newEnemy)
+                    if colidiu == true then break end
+                end
+                if colidiu == false then
+                    table.insert(enemies, newEnemy)
+                    time[i] = phase.enemys[i]
+                end
+                break
             end
         end
 
