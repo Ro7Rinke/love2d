@@ -43,6 +43,8 @@ end
 
 function love.update(dt)
 
+    scoreboard:update(dt)
+
     if current_screen == 'start_game' then table.remove(enemies) end
 
     -- Quando a fase esta no começo
@@ -132,8 +134,13 @@ function love.update(dt)
                             current_screen = 'dead'
                         end
                         player:takeDamage()
+                        scoreboard:extra(0, -5)
+                        scoreboard:extra(phase.id, -5)
                     else
-                        player:giveLife()
+                        if player:giveLife() == false then
+                            scoreboard:extra(0, 10)
+                            scoreboard:extra(phase.id, 10)
+                        end
                         life[player.lives]:setViewport(0, 0, 39, 39)
                     end
                     table.remove(enemies, i)
@@ -151,7 +158,23 @@ function love.update(dt)
         end
     end
 
-    if current_screen == 'end_game' then table.remove(enemies) end
+    if current_screen == 'end_game' then 
+        table.remove(enemies)
+        scoreboard:stopAddScore(0)
+        scoreboard:stopAddScore(phase.id)
+        scoreboard:stopAddTime(0)
+        scoreboard:stopAddTime(phase.id)
+    elseif current_screen == 'end_phase' then
+        scoreboard:stopAddScore(0)
+        scoreboard:stopAddScore(phase.id)
+        scoreboard:stopAddTime(0)
+        scoreboard:stopAddTime(phase.id)
+    elseif current_screen == 'dead' then
+        scoreboard:stopAddScore(0)
+        scoreboard:stopAddScore(phase.id)
+        scoreboard:stopAddTime(0)
+        scoreboard:stopAddTime(phase.id)
+    end
 
 end
 
@@ -202,6 +225,8 @@ function love.draw()
         phase.music:stop()
         you_died_music:play()
     end
+    
+    scoreboard:draw(phase.id)
 
 end
 
@@ -216,6 +241,10 @@ function verifyKey(key)
     elseif current_screen == 'start_phase' then
 
         if key == 'space' then
+            scoreboard:startAddScore(0)
+            scoreboard:startAddScore(phase.id)
+            scoreboard:startAddTime(0)
+            scoreboard:startAddTime(phase.id)
             current_screen = 'game'
             you_died_music:stop()
         end

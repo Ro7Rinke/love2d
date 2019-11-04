@@ -1,14 +1,29 @@
 Scoreboard = Object:extend()
 
+function Scoreboard:extra(phase, value)
+    if phase == 0 then
+        self.score.total = self.score.total + value
+    elseif phase == 1 then
+        self.score.first = self.score.first + value
+    elseif phase == 2 then
+        self.score.second = self.score.second + value
+    elseif phase == 3 then
+        self.score.third = self.score.third + value
+    end
+end
+
 function Scoreboard:startAddScore(phase) -- phase number
     if phase == 0 then -- phase number 0 is the total score 
         self.score.adding_total = true
     elseif phase == 1 then
         self.score.adding_first = true
+        self.score.first = 0
         elseif phase == 2 then
             self.score.adding_second = true
+            self.score.second = 0
             elseif phase == 3 then
                 self.score.adding_third = true
+                self.score.third = 0
             end
 end
 
@@ -29,10 +44,13 @@ function Scoreboard:startAddTime(phase) -- phase number
         self.time.adding_total = true
     elseif phase == 1 then
         self.time.adding_first = true
+        self.time.first = 0
         elseif phase == 2 then
             self.time.adding_second = true
+            self.time.second = 0
             elseif phase == 3 then
                 self.time.adding_third = true
+                self.time.third = 0
             end
 end
 
@@ -96,6 +114,13 @@ function Scoreboard:update(dt)
     end
 end
 
-function Scoreboard:draw()
-    love.graphics.print(self.score.total, 0, 0)
+
+function Scoreboard:draw(phase)
+    if phase == 1 then
+        love.graphics.print(math.floor(self.score.first), 500, 20)
+    elseif phase == 2 then
+        love.graphics.print(math.floor(self.score.second), 500, 20)
+    elseif phase == 3 then
+        love.graphics.print(math.floor(self.score.third), 500, 20)
+    end
 end
