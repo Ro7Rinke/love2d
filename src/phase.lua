@@ -9,11 +9,11 @@ function Phase:new(id)
         self.start = love.graphics.newImage('assets/images/cutscene/start_fase_1.png')
         self.fim = love.graphics.newImage('assets/images/cutscene/end_fase_1.png')
 
-        self.enemys = {zombie = 3, bisturi = 8, life = 5} -- Inimigos da fase
+        self.enemys = {zombie = 3, bisturi = 8, life = 15} -- Inimigos da fase
         self.duration = 158 -- Duraçao que a fase pode vir a ter [NÃO IMPLEMENTADO]
 
         self.music = love.audio.newSource('assets/soundFX/tension_music.mp3', 'static') -- MUSICA DA FASE
-        self.music:setVolume(0.5) -- 50% volume
+        self.music:setVolume(0.1) -- 50% volume
 
     elseif self.id == 2 then
 
@@ -22,11 +22,11 @@ function Phase:new(id)
         self.start = love.graphics.newImage('assets/images/cutscene/start_fase_2.png')
         self.fim = love.graphics.newImage('assets/images/cutscene/end_fase_2.png')
 
-        self.enemys = {zombie = 3, stone = 8, buraco = 5} -- Inimigos da fase
+        self.enemys = {zombie = 3, stone = 8, buraco = 5, life = 25} -- Inimigos da fase
         self.duration = 153 -- Duraçao que a fase pode vir a ter [NÃO IMPLEMENTADO]
 
         self.music = love.audio.newSource('assets/soundFX/dancin_forro.mp3','static') -- MUSICA DA FASE
-        self.music:setVolume(0.5) -- 50% volume
+        self.music:setVolume(0.1) -- 50% volume
 
     elseif self.id == 3 then
 
@@ -34,11 +34,11 @@ function Phase:new(id)
         self.start = love.graphics.newImage('assets/images/cutscene/start_fase_3.png')
         self.fim = love.graphics.newImage('assets/images/cutscene/end_fase_3.png')
 
-        self.enemys = {zombie = 3, fox = 8, horse = 4, moose = 6, stone = 10} -- Inimigos da fase
+        self.enemys = {zombie = 3, fox = 8, horse = 4, moose = 6, stone = 10, life = 35} -- Inimigos da fase
         self.duration = 149 -- Duraçao que a fase pode vir a ter [NÃO IMPLEMENTADO]
 
         self.music = love.audio.newSource('assets/soundFX/hope_music.mp3','static') -- MUSICA DA FASE
-        self.music:setVolume(0.5) -- 50% volume
+        self.music:setVolume(0.1) -- 50% volume
         
     end
 
