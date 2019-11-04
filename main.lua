@@ -13,7 +13,8 @@ function love.load()
     player = Player(phase.player)
     heart = love.graphics.newImage('assets/images/personagem/heart-39x39.png')
     start_game = love.graphics.newImage('assets/images/cutscene/start_game.png')
-    dead_window = love.graphics.newImage('assets/images/cutscene/dead_window.png')
+    dead_window = love.graphics.newImage(
+                      'assets/images/cutscene/dead_window.png')
     end_game = love.graphics.newImage('assets/images/cutscene/end_game.png')
 
     life = {
@@ -27,13 +28,14 @@ function love.load()
     scoreboard = Scoreboard()
     current_screen = 'start_game' -- Sempre inicia no start para rolar as cutscene
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    you_died_music = love.audio.newSource('assets/soundFX/youdied.mp3', 'static')
+    you_died_music = love.audio
+                         .newSource('assets/soundFX/youdied.mp3', 'static')
     end_music = love.audio.newSource('assets/soundFX/end_music.mp3', 'static')
 
     you_died_music:setVolume(0.1)
     end_music:setVolume(0.1)
 
-    cdLanes = {0,0,0}
+    cdLanes = {0, 0, 0}
     time = {}
     tempoCorrido = 0
 
@@ -41,16 +43,14 @@ end
 
 function love.update(dt)
 
-    if current_screen == 'start_game' then
-        table.remove(enemies)
-    end
+    if current_screen == 'start_game' then table.remove(enemies) end
 
     -- Quando a fase esta no começo
     -- faz com que a cutscene do inicio seja
     -- carregada e tambem remove os inimigos da tela
     if current_screen == 'start_phase' then
-         phase:update(dt, current_screen) 
-         table.remove(enemies)
+        phase:update(dt, current_screen)
+        table.remove(enemies)
     end
 
     function love.keypressed(key) verifyKey(key) end
@@ -65,9 +65,7 @@ function love.update(dt)
             life[3]:setViewport(0, 0, 39, 39)
         end
 
-        for i,lane in ipairs(cdLanes) do
-            cdLanes[i] = cdLanes[i]+dt
-        end
+        for i, lane in ipairs(cdLanes) do cdLanes[i] = cdLanes[i] + dt end
 
         -- Faz com que todos os tipos de inimigos tenham seu tempo atualizado
         -- Agora os inimigos são pegos diretamenta do objeto da fase
@@ -120,6 +118,8 @@ function love.update(dt)
                 if verifyCollision(player, enemy) then
                     if enemy.type ~= 'life' then
                         player.damage:play()
+                    else
+                        player.heal:play()
                     end
 
                     if enemy.damage then
@@ -143,19 +143,16 @@ function love.update(dt)
         end
 
         player:update(dt)
+
+        -- Teste para não conseguir mudar o current_screen quando tiver morto
+        if tempoCorrido >= phase.duration and phase.id <= 3 and current_scene ~= 'dead' then
+            current_screen = 'end_phase'
+            tempoCorrido = 0
+        end
     end
 
-    if current_screen == 'end_game' then
-    
-        table.remove(enemies)
-    
-    end
+    if current_screen == 'end_game' then table.remove(enemies) end
 
-    -- Teste para não conseguir mudar o current_screen quando tiver morto
-    if tempoCorrido >= 5 and phase.id <= 3 and current_scene ~= 'dead' then
-        current_screen = 'end_phase'
-        tempoCorrido = 0
-    end
 end
 
 function love.draw()
@@ -163,12 +160,12 @@ function love.draw()
     if current_screen == 'start_game' then
         love.graphics.draw(start_game)
 
-    -- Se a cena for start_phase, inimigos zerados,
-    -- musicas paradas e desenha a tela de
-    -- inicio da fase em questão
+        -- Se a cena for start_phase, inimigos zerados,
+        -- musicas paradas e desenha a tela de
+        -- inicio da fase em questão
     elseif current_screen == 'start_phase' then
         enemys = {}
-        love.graphics.draw(phase.start_phase)
+        love.graphics.draw(phase.start)
         phase.music:stop()
         you_died_music:stop()
 
@@ -211,8 +208,8 @@ end
 function verifyKey(key)
 
     if current_screen == 'start_game' then
-        if key == 'space' then
-            current_screen = 'start_phase'
+        if key == 'space' then 
+            current_screen = 'start_phase' 
         end
     end
 
@@ -231,9 +228,7 @@ function verifyKey(key)
             player:changeRole('right')
         end
 
-        if key == 'left' or key == 'up' then 
-            player:changeRole('left') 
-        end
+        if key == 'left' or key == 'up' then player:changeRole('left') end
 
     end
 
@@ -298,12 +293,12 @@ end
 function selectPhase(phase_id)
 
     if phase_id ~= 4 then
-    phase.music:stop()
-    enemys = {}
+        phase.music:stop()
+        enemys = {}
 
-    phase = Phase(phase_id)
-    player = Player(phase.player)
-    current_screen = 'start_phase'
+        phase = Phase(phase_id)
+        player = Player(phase.player)
+        current_screen = 'start_phase'
 
     else
 

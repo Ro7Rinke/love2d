@@ -2,7 +2,8 @@ Player = Object:extend()
 
 function Player:new(type)
     self.type = type
-
+    self.heal = love.audio.newSource('assets/soundFX/heal_life.wav', 'static')
+    
     if self.type == 'normal' then
         self.speed = 12 -- Velocidade 
         self.num_frames = 4 -- Total de frames
