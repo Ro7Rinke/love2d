@@ -168,7 +168,7 @@ function love.draw()
     -- inicio da fase em questão
     elseif current_screen == 'start_phase' then
         enemys = {}
-        love.graphics.draw(phase.start_phase)
+        love.graphics.draw(phase.start)
         phase.music:stop()
         you_died_music:stop()
 
@@ -214,18 +214,14 @@ function verifyKey(key)
         if key == 'space' then
             current_screen = 'start_phase'
         end
-    end
-
-    if current_screen == 'start_phase' then
+    elseif current_screen == 'start_phase' then
 
         if key == 'space' then
             current_screen = 'game'
             you_died_music:stop()
         end
 
-    end
-
-    if current_screen == 'game' then
+    elseif current_screen == 'game' then
 
         if key == 'right' or key == 'down' then
             player:changeRole('right')
@@ -235,12 +231,12 @@ function verifyKey(key)
             player:changeRole('left') 
         end
 
-    end
+    
 
     -- Se for o fim de uma fase, após ser
     -- pressionado o espaço a fase seguinte
     -- irá começar
-    if current_screen == 'end_phase' and phase.id ~= 4 then
+    elseif current_screen == 'end_phase' and phase.id ~= 4 then
 
         if key == 'space' then
             you_died_music:stop()
