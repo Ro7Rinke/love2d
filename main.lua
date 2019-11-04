@@ -208,9 +208,11 @@ end
 function verifyKey(key)
 
     if current_screen == 'start_game' then
+
         if key == 'space' then 
             current_screen = 'start_phase' 
         end
+        
     elseif current_screen == 'start_phase' then
 
         if key == 'space' then
