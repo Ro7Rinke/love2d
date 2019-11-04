@@ -11,8 +11,8 @@ function love.load()
     phase = Phase(1)
 
     player = Player(phase.player)
-    heart = love.graphics.newImage('assets/images/heart-39x39.png')
-    dead_window = love.graphics.newImage('assets/images/dead_window.png')
+    heart = love.graphics.newImage('assets/images/personagem/heart-39x39.png')
+    dead_window = love.graphics.newImage('assets/images/cutscene/dead_window.png')
 
     life = {
         love.graphics.newQuad(0, 0, 39, 39, heart:getDimensions()),

@@ -9,52 +9,52 @@ function Enemy:new(type)
     self.type = type
     self.damage = true
     if self.type == "zombie" then
-        self.image = love.graphics.newImage('assets/images/zombie-102x192.png')
+        self.image = love.graphics.newImage('assets/images/obstaculos/zombie-102x192.png')
         self.width = 102
         self.height = 192
         self.num_frames = 3 -- Total de frames
 
     elseif self.type == "stone" then
-        self.image = love.graphics.newImage('assets/images/stone-140x140.png')
+        self.image = love.graphics.newImage('assets/images/obstaculos/stone-140x140.png')
         self.width = 140
         self.height = 140
         self.num_frames = 1 -- Total de frames
 
     elseif self.type == "bisturi" then
-        self.image = love.graphics.newImage('assets/images/bisturi-72x75.png')
+        self.image = love.graphics.newImage('assets/images/obstaculos/bisturi-72x75.png')
         self.width = 72
         self.height = 75
         self.num_frames = 4 -- Total de frames
 
     elseif self.type == "buraco" then
-        self.image = love.graphics.newImage('assets/images/buraco-96x96.png')
+        self.image = love.graphics.newImage('assets/images/obstaculos/buraco-96x96.png')
         self.width = 96
         self.height = 96
         self.num_frames = 3 -- Total de frames
 
     elseif self.type == "fox" then
-        self.image = love.graphics.newImage('assets/images/fox-120x96.png')
+        self.image = love.graphics.newImage('assets/images/obstaculos/fox-120x96.png')
         self.width = 120
         self.height = 96
         self.num_frames = 5 -- Total de frames
         self.speed = 12 -- Velocidade 
 
     elseif self.type == "horse" then
-        self.image = love.graphics.newImage('assets/images/horse-240x192.png')
+        self.image = love.graphics.newImage('assets/images/obstaculos/horse-240x192.png')
         self.width = 240
         self.height = 192
         self.num_frames = 5 -- Total de frames
         self.speed = 12 -- Velocidade 
 
     elseif self.type == "moose" then
-        self.image = love.graphics.newImage('assets/images/moose-240x192.png')
+        self.image = love.graphics.newImage('assets/images/obstaculos/moose-240x192.png')
         self.width = 240
         self.height = 192
         self.num_frames = 5 -- Total de frames
         self.speed = 12 -- Velocidade 
 
     elseif self.type == "life" then
-        self.image = love.graphics.newImage('assets/images/medicalKit-60x65.png')
+        self.image = love.graphics.newImage('assets/images/personagem/medicalKit-60x65.png')
         self.width = 60
         self.height = 65
         self.num_frames = 4 -- Total de frames
@@ -109,14 +109,12 @@ function Enemy:update(dt)
 
     end
 
-    -- Temporização da onda de inimigos
-
     self.x = self.x - (300 * dt) -- Movimenta o inimigo
 
     -- Atualizando posição dos inimigos
     for i, self in ipairs(enemies) do
 
-        if self.x < -102 then -- remover se ultrapassar o final da tela
+        if self.x < -self.width then -- remover o inimigo se ultrapassar o final da tela
             table.remove(enemies, i)
         end
 
