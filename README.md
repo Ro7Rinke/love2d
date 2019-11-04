@@ -22,19 +22,18 @@
 ## Lista de tarefas (Colocar aqui o que falta e oq já fez)
 
 - [X] Opção de restartar a fase depois de morrer
-- [ ] Temporização pra ir para a proxima fase
+- [X] Temporização pra ir para a proxima fase
 - [X] Cenas no inicio e fim de cada fase
 - [X] Startar o game após pressionar espaço
-- [ ] Animação da cena
-- [ ] Desbugar inimigos da fase anterior que ainda continuam na seguinte
+- [X] Animação da cena
+- [X] Desbugar inimigos da fase anterior que ainda continuam na seguinte
 - [ ] **SISTEMA DE VIDA DE SCORE**
 	- [X] Spawn de vida 
 	- [ ] Ganhar vida com o item de vida até 3 e depois somar na score
 - [X] **FASE 1**
 	- [X] Inserção de obstáculos
 - [ ] **FASE 2**
-	- [ ] Inserção de obstáculos
+	- [X] Inserção de obstáculos
 	- [X] Ambulância ~~besta~~ 
 - [ ] **FASE 3** 
-	- [ ] Inserção de obstáculos
-	- [ ] Projéteis e colisão deles nos zumbis pra gerar ponto e nos animais pra reduzir pontos
+	- [X] Inserção de obstáculos
