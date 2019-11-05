@@ -116,11 +116,11 @@ end
 
 
 function Scoreboard:draw(phase)
-    if phase == 1 then
-        love.graphics.print(math.floor(self.score.first), 500, 20)
-    elseif phase == 2 then
-        love.graphics.print(math.floor(self.score.second), 500, 20)
-    elseif phase == 3 then
-        love.graphics.print(math.floor(self.score.third), 500, 20)
-    end
+    -- if phase == 1 then
+    --     love.graphics.print(math.floor(self.score.first), 500, 20)
+    -- elseif phase == 2 then
+    --     love.graphics.print(math.floor(self.score.second), 500, 20)
+    -- elseif phase == 3 then
+    --     love.graphics.print(math.floor(self.score.third), 500, 20)
+    -- end
 end

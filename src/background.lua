@@ -30,6 +30,6 @@ function Background:update(dt)
         images_alive[2].x = 1200
     end
 
-    images_alive[1].x = images_alive[1].x - (dt * 300)
-    images_alive[2].x = images_alive[2].x - (dt * 300)
+    images_alive[1].x = images_alive[1].x - (dt * 700)
+    images_alive[2].x = images_alive[2].x - (dt * 700)
 end

@@ -109,7 +109,7 @@ function Enemy:update(dt)
 
     end
 
-    self.x = self.x - (300 * dt) -- Movimenta o inimigo
+    self.x = self.x - (1200 * dt) -- Movimenta o inimigo
 
     -- Atualizando posição dos inimigos
     for i, self in ipairs(enemies) do
